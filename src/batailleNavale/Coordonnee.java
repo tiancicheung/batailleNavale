@@ -7,11 +7,11 @@ public class Coordonnee implements Comparable<Coordonnee> {
 
     // Constructors
     public Coordonnee(int ligne, int colonne) {
-        this.ligne = ligne;
-        this.colonne = colonne;
-        if (this.ligne < 0 || this.colonne < 0) {
+        if (ligne < 0 || colonne < 0) {
             throw new IllegalArgumentException("Coordonnée négative ne peut pas être acceptée.");
         }
+        this.ligne = ligne;
+        this.colonne = colonne;
     }
 
     public Coordonnee(String s) {
