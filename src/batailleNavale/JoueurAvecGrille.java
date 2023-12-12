@@ -1,3 +1,5 @@
+package batailleNavale;
+
 public abstract class JoueurAvecGrille extends Joueur {
   // Attributs :
   private GrilleNavale grille;
