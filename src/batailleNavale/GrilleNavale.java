@@ -28,67 +28,143 @@ public class GrilleNavale {
     }
 
     // Méthodes
+   // public String toString() {
+    //        String represent = "";
+    //        // Ajout de l'en-tête avec les lettres des colonnes
+    //        represent += "  ";
+    //        for (int j = 1; j <= taille; j++) {
+    //            represent += (char) ('A' + j - 1) + " ";
+    //        }
+    //        represent += "\n";
+    //        // Parcours de chaque ligne et colonne pour construire la représentation
+    //        for (int i = 1; i <= taille; i++) {
+    //            represent += i + " ";
+    //            for (int j = 1; j <= taille; j++) {
+    //                Coordonnee coord = new Coordonnee(i, j);
+    //                // Vérifier l'état de la case
+    //                char symbol = '.';
+    //                if (estDansTirsRecus(coord)) {
+    //                    if (estTouche(coord)) {
+    //                        symbol = 'X';
+    //                    } else if (estALEau(coord)) {
+    //                        symbol = 'O';
+    //                    }
+    //                }
+    //                else {
+    //                    for (int k = 0; k < nbNavires; k++) {
+    //                        if (navires[k] != null && navires[k].contient(coord)) {
+    //                            symbol = '#';
+    //                        }
+    //                    }
+    //                }
+    //
+    //                represent += symbol + " ";
+    //            }
+    //            represent += "\n";
+    //        }
+    //
+    //        return represent;
+    //    }
+    //
+    //    public int getTaille() {
+    //        return taille;
+    //    }
+    //
+    //    public boolean ajouteNavire(Navire n) {
+    //        // Vérifier si le navire chevauche, touche un autre navire déjà présent
+    //        for (int i = 0; i < nbNavires; i++) {
+    //            if (navires[i] != null && (navires[i].chevauche(n) || n.chevauche(navires[i]) || navires[i].touche(n) || n.touche(navires[i]))) {
+    //                return false;  // L'ajout est impossible car il y a chevauchement
+    //            }
+    //        }
+    //        // Vérifier si le navire dépasse les limites de la grille
+    //        if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
+    //            return false;  // L'ajout est impossible car le navire dépasse les limites
+    //        }
+    //        // Ajouter le navire à la grille
+    //        for (int i = 0; i < nbNavires; i++) {
+    //            if (navires[i] == null) {
+    //                navires[i] = n;
+    //                return true;  // L'ajout a réussi
+    //            }
+    //        }
+    //        return false;  // La grille est pleine, l'ajout est impossible
+    //    }
+    // Méthodes
     public String toString() {
-        String represent = "";
-        // Ajout de l'en-tête avec les lettres des colonnes
-        represent += "  ";
-        for (int j = 1; j <= taille; j++) {
-            represent += (char) ('A' + j - 1) + " ";
+        char[][] grille = new char[taille + 1][taille + 1];
+        for (int i = 1; i < taille + 1; i++) {
+            grille[0][i] = (char) ((int) ('A') + i - 1);
         }
-        represent += "\n";
-        // Parcours de chaque ligne et colonne pour construire la représentation
-        for (int i = 1; i <= taille; i++) {
-            represent += i + " ";
-            for (int j = 1; j <= taille; j++) {
-                Coordonnee coord = new Coordonnee(i, j);
-                // Vérifier l'état de la case
-                char symbol = '.';
-                if (estDansTirsRecus(coord)) {
-                    if (estTouche(coord)) {
-                        symbol = 'X';
-                    } else if (estALEau(coord)) {
-                        symbol = 'O';
-                    }
-                } else {
-                    for (Navire navire : navires) {
-                        if (navire != null && navire.contient(coord)) {
-                            symbol = '#';
-                            break;
+        for (int i = 1; i < taille + 1; i++) {
+            grille[i][0] = Character.forDigit(i, 10);
+        }
+        if (this.tirsRecus == null){
+
+        }else {
+            for (int i = 0; i < nbTirsRecus; i++) {
+                grille[tirsRecus[i].getLigne()][tirsRecus[i].getColonne()] = '◯';
+            }
+        }
+        for (int i = 0; i < navires.length; i++) {
+            if (navires[i].estVertical()) {
+                // vertical
+                int startLigne = navires[i].getDebut().getLigne()+1;
+                int startColonne = navires[i].getDebut().getColonne()+1;
+                int length = Math.abs(navires[i].getDebut().getLigne() - navires[i].getFin().getLigne()) + 1;
+
+                for (int j = 0; j < length; j++) {
+                    int currentLigne = startLigne + j;
+                    int currentColonne = startColonne;
+
+                    if (currentLigne < grille.length && currentColonne < grille[currentLigne].length) {
+                        Coordonnee b = new Coordonnee(currentLigne, currentColonne);
+                        if (estTouche(b)) {
+                            grille[currentLigne][currentColonne] = 'X';
+                        } else {
+                            grille[currentLigne][currentColonne] = '#';
                         }
                     }
                 }
+            } else {
+                // orientation horizontale
+                int startLigne = navires[i].getDebut().getLigne()+1;
+                int startColonne = navires[i].getDebut().getColonne()+1;
+                int length = Math.abs(navires[i].getDebut().getColonne() - navires[i].getFin().getColonne()) + 1;
 
-                represent += symbol + " ";
-            }
-            represent += "\n";
-        }
+                for (int j = 0; j < length; j++) {
+                    int currentLigne = startLigne;
+                    int currentColonne = startColonne + j;
 
-        return represent;
-    }
-
-    public int getTaille() {
-        return taille;
-    }
-
-    public boolean ajouteNavire(Navire n) {
-        // Vérifier si le navire chevauche, touche un autre navire déjà présent
-        for (int i = 0; i < nbNavires; i++) {
-            if (navires[i] != null && (navires[i].chevauche(n) || n.chevauche(navires[i]) || navires[i].touche(n) || n.touche(navires[i]))) {
-                return false;  // L'ajout est impossible car il y a chevauchement
-            }
-        }
-        // Vérifier si le navire dépasse les limites de la grille
-        if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
-            return false;  // L'ajout est impossible car le navire dépasse les limites
-        }
-        // Ajouter le navire à la grille
-        for (int i = 0; i < nbNavires; i++) {
-            if (navires[i] == null) {
-                navires[i] = n;
-                return true;  // L'ajout a réussi
+                    if (currentLigne < grille.length && currentColonne < grille[currentLigne].length) {
+                        Coordonnee b = new Coordonnee(currentLigne, currentColonne);
+                        if (estTouche(b)) {
+                            grille[currentLigne][currentColonne] = 'X';
+                        } else {
+                            grille[currentLigne][currentColonne] = '#';
+                        }
+                    }
+                }
             }
         }
-        return false;  // La grille est pleine, l'ajout est impossible
+
+        for (int i = 1; i < taille + 1; i++) {
+            for (int j = 1; j < taille + 1; j++) {
+                if (grille[i][j] == '\u0000') {
+                    grille[i][j] = '·';
+                }
+            }
+        }
+        grille[0][0] = ' ';
+        StringBuilder a = new StringBuilder();
+        for (int i = 0; i < taille + 1; i++) {
+            for (int j = 0; j < taille + 1; j++) {
+                a.append(grille[i][j]);
+                a.append("  ");
+            }
+            a.append("\n");
+        }
+        return a.toString();
     }
 
 
@@ -171,6 +247,9 @@ public class GrilleNavale {
         return false;
     }
     public boolean estTouche(Coordonnee c) {
+        if (navires == null) {
+            throw new IllegalArgumentException("La grille ne contient aucun navire.");
+        }
         for (int i = 0; i < nbNavires; i++) {
             if (navires[i].estTouche(c)) {
                 return true;
@@ -178,6 +257,7 @@ public class GrilleNavale {
         }
         return false;
     }
+
 
 
     public boolean estALEau(Coordonnee c) {
@@ -206,4 +286,18 @@ public class GrilleNavale {
         return true;
     }
 
+
+    public static void main(String[] args) {
+        int[] taillesNavires = {4, 5, 6};
+
+        GrilleNavale grilleNavale2 = new GrilleNavale(10, taillesNavires);
+        grilleNavale2.placementAuto(taillesNavires);
+        for (int i= 0; i<3; i++) {
+            System.out.println(grilleNavale2.navires[i]);
+        }
+        System.out.println(grilleNavale2.toString());
+
+
+
+    }
 }
