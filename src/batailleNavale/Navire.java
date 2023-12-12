@@ -12,34 +12,33 @@ public class Navire {
         if (longueur < 0) {
             throw new IllegalArgumentException("La longueur d'un navire ne peut être inférieure à 0, longueur = " + longueur);
         }
-        this.debut = debut;
+        this.debut=debut;
         if (estVertical)
-            this.fin = new Coordonnee(debut.getLigne() + longueur - 1, debut.getColonne());
+            this.fin=new Coordonnee (debut.getLigne()+longueur-1, debut.getColonne());
         else
-            this.fin = new Coordonnee(debut.getLigne(), debut.getColonne() + longueur - 1);
-        this.partiesTouchees = new Coordonnee[longueur];
-        this.nbTouchees = 0;
+            this.fin=new Coordonnee (debut.getLigne(), debut.getColonne()+longueur-1);
+        this.partiesTouchees= new Coordonnee[longueur];
+        this.nbTouchees=0;
 
     }
 
 
     //Methods
-    public boolean estVertical() {
+    public boolean estVertical () {
         return debut.getColonne() == fin.getColonne();
     }
 
 
     public String toString() {
         if (debut.getColonne() == fin.getColonne())
-            return "Navire (" + debut + ", " + (fin.getLigne() - debut.getLigne() + 1) + ", " + "vertical)";
-        return "Navire (" + debut + ", " + (fin.getColonne() - debut.getColonne() + 1) + ", " + "horizontal)";
+            return "Navire (" + debut + ", " +(fin.getLigne()-debut.getLigne()+1) + ", " + "vertical)";
+        return "Navire (" + debut + ", " + (fin.getColonne()-debut.getColonne()+1) + ", " + "horizontal)";
     }
 
 
     public Coordonnee getDebut() {
         return this.debut;
     }
-
     public Coordonnee getFin() {
         return this.fin;
     }
@@ -48,7 +47,6 @@ public class Navire {
     public int getTouchLength() {
         return this.nbTouchees;
     }
-
     public boolean contient(Coordonnee c) {
         return (c.compareTo(this.debut) >= 0 && c.compareTo(this.fin) <= 0);
 
@@ -58,16 +56,16 @@ public class Navire {
 
     public boolean touche(Navire n) {
         // Si sur une ligne adjacente et sur même colonne & pas de chevauchement
-        if (n.getFin().getLigne() + 1 >= this.getDebut().getLigne() && this.getFin().getLigne() + 1 >= n.getDebut().getLigne())
-            if (n.getFin().getColonne() >= this.getDebut().getColonne() && this.getFin().getColonne() >= n.getDebut().getColonne())
-                if (this.chevauche(n) == false)
+        if(n.getFin().getLigne()+1 >= this.getDebut().getLigne() && this.getFin().getLigne()+1 >= n.getDebut().getLigne())
+            if(n.getFin().getColonne() >= this.getDebut().getColonne() && this.getFin().getColonne() >= n.getDebut().getColonne())
+                if ( this.chevauche(n) == false )
                     return true;
 
 
         // Si sur une colonne adjacente et sur même ligne & pas de chevauchement
-        if (n.getFin().getColonne() + 1 >= this.getDebut().getColonne() && this.getFin().getColonne() + 1 >= n.getDebut().getColonne())
-            if (n.getFin().getLigne() >= this.getDebut().getLigne() && this.getFin().getLigne() >= n.getDebut().getLigne())
-                if (this.chevauche(n) == false)
+        if(n.getFin().getColonne()+1 >= this.getDebut().getColonne() && this.getFin().getColonne()+1 >= n.getDebut().getColonne())
+            if(n.getFin().getLigne() >= this.getDebut().getLigne() && this.getFin().getLigne() >= n.getDebut().getLigne())
+                if ( this.chevauche(n) == false )
                     return true;
 
 
@@ -79,6 +77,7 @@ public class Navire {
 
         Coordonnee debutN = n.getDebut();
         Coordonnee finN = n.getFin();
+        // Vérifier si l'une des coordonnées de n est contenue dans le navire actuel (this)
         for (int i = debutN.getLigne(); i <= finN.getLigne(); i++) {
             for (int j = debutN.getColonne(); j <= finN.getColonne(); j++) {
                 Coordonnee coord = new Coordonnee(i, j); //on parcourt Navire debut -> fin pour voir si y a parti commun
@@ -89,7 +88,6 @@ public class Navire {
         }
         return false;
     }
-
     //Retourne true si et seulement si this contient c. Dans ce cas, c est ajoutée aux parties touchées si nécessaire.
     public boolean recoitTir(Coordonnee c) {
         if (partiesTouchees.length < 0) {
@@ -114,7 +112,9 @@ public class Navire {
             throw new IllegalArgumentException("Le nombre de parties d'un navire ne peut être inférieur à 0, nombre de parties du navire = " + partiesTouchees.length);
         }
         for (int i = 0; i < partiesTouchees.length; i++) {
-            if (partiesTouchees[i].equals(c)) {
+            if ( partiesTouchees[i] != null && partiesTouchees[i].equals(c)) {
+
+
                 return true; //si c appartient aux éléments dans partiesTouchees de Navire, ça va return true
             }
         }
@@ -127,7 +127,7 @@ public class Navire {
         }
 
 
-        for (int i = 0; i < partiesTouchees.length; i++)
+        for (int i=0; i<partiesTouchees.length; i++)
             System.out.print(partiesTouchees[i] + " ");
     }
 
@@ -142,7 +142,6 @@ public class Navire {
         return false;
 
     }
-
     public boolean estCoule() {
         if (nbTouchees < 0) {
             throw new IllegalArgumentException("Le nombre de fois que le navire est touché ne peut être inférieur à 0, nbTouchees = " + nbTouchees);
