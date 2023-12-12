@@ -1,5 +1,7 @@
 package batailleNavale;
 
+import java.util.Random;
+
 public class GrilleNavale {
     // Attributs
     private Navire[] navires;
@@ -90,7 +92,42 @@ public class GrilleNavale {
     }
 
 
+    public void placementAuto(int [] taillesNavires){
+        //A tester
+        boolean b = false;
+        while (b == false) {
+            navires[0] = new Navire(new Coordonnee((int) (Math.random() * (taille - 1)), (int) (Math.random() * (taille - 1))), taillesNavires[0], Math.random() < 0.5);
+            if (navires[0].estVertical()) {
+                b = navires[0].getDebut().getLigne() <= taille - taillesNavires[0];
+            } else {
+                b = navires[0].getDebut().getColonne() <= taille - taillesNavires[0];
+            }
+        }
 
+        for (int i = 1; i < taillesNavires.length; i++) {
+            boolean c = false;
+            while (c == false) {
+                boolean a = false;
+                while (a == false) {
+                    navires[i] = new Navire(new Coordonnee((int) (Math.random() * (taille - 1)), (int) (Math.random() * (taille - 1))), taillesNavires[i], Math.random() < 0.5);
+                    //is it a vertical ship?
+                    if (navires[i].estVertical()) {
+                        a = navires[i].getDebut().getLigne() <= taille - taillesNavires[i];
+                    } else {
+                        //is it a horizontal ship?
+                        a = navires[i].getDebut().getColonne() <= taille - taillesNavires[i];
+                    }
+                }
+                for (int j = 0; j < i; j++) {//is it overlapping another ship or touching it?
+                    if (navires[i].chevauche(navires[j]) || navires[i].touche(navires[j]) || navires[j].touche(navires[i])) {
+                        c = false;
+                    } else {
+                        c = true;
+                    }
+                }
+            }
+        }
+    }
 
 
     private boolean estDansGrille(Coordonnee c) {
