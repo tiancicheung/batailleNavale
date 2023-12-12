@@ -114,7 +114,7 @@ public class Navire {
             throw new IllegalArgumentException("Le nombre de parties d'un navire ne peut être inférieur à 0, nombre de parties du navire = " + partiesTouchees.length);
         }
         for (int i = 0; i < partiesTouchees.length; i++) {
-            if (partiesTouchees[i].equals(c)) {
+            if (partiesTouchees[i] != null && partiesTouchees[i].equals(c)) {
                 return true; //si c appartient aux éléments dans partiesTouchees de Navire, ça va return true
             }
         }
