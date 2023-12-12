@@ -3,11 +3,11 @@ import java.util.Scanner;
 public abstract class JoueurTexte extends JoueurAvecGrille {
         private Scanner sc;
         public JoueurTexte(GrilleNavale g, String nom) {
-            super();//inicialiser le nom
+            super(g, nom);//inicialiser le nom
             this.sc = new Scanner(System.in);//inicialiser le scanner
         }
         public JoueurTexte(GrilleNavale g) {
-            super();
+            super(g);
             this.sc = new Scanner(System.in);
         }
         public void retourAttaque(Coordonnee c, int etat) {
