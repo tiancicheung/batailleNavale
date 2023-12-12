@@ -2,6 +2,7 @@ package batailleNavale;
 
 public abstract class Joueur {
     // Attributes
+    // Les constantes définies ci-dessous représentent les résultats possibles d'un tir pendant le jeu.
     public final static int TOUCHE = 1;
     public final static int COULE = 2;
     public final static int A_L_EAU = 3;
@@ -12,13 +13,18 @@ public abstract class Joueur {
 
     // Constructors
     public Joueur(int tailleGrille, String nom) {
+        if (tailleGrille < 5 || tailleGrille > 26) { // on vérifie que la taille de la grille est comprise entre 5 et 26
+            throw new IllegalArgumentException("La taille de la grille doit être comprise entre 5 et 26.");
+        }
+        if (nom == null || nom.isEmpty()) { // on vérifie que le nom du joueur n'est pas vide
+            throw new IllegalArgumentException("Le nom du joueur ne peut pas être vide.");
+        }
         this.tailleGrille = tailleGrille;
         this.nom = nom;
-
     }
 
     public Joueur(int tailleGrille) {
-
+        this (tailleGrille, "");
     }
 
     // Methods
