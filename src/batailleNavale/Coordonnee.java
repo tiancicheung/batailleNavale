@@ -1,23 +1,24 @@
 package batailleNavale;
 
 public class Coordonnee implements Comparable<Coordonnee> {
-    // Attributes
+    // Attributs
     private int ligne;
     private int colonne;
 
-    // Constructors
-    public Coordonnee(int ligne, int colonne) {
+    // Constructeurs
+    public Coordonnee(int ligne, int colonne) { // on vérifie que la ligne et la colonne sont positives
         if (ligne < 0 || colonne < 0) {
             throw new IllegalArgumentException("Coordonnée négative ne peut pas être acceptée.");
+        } else if (ligne > 25 || colonne > 25) { // on vérifie que la ligne et la colonne sont inférieures à 25
+            throw new IllegalArgumentException("Coordonnée supérieure à 25 ne peut pas être acceptée.");
         }
-        this.ligne = ligne;
+        this.ligne = ligne; // on affecte les valeurs à la ligne et à la colonne
         this.colonne = colonne;
     }
 
     public Coordonnee(String s) {
         if (s.length() == 2 || s.length() == 3) { // quand la longueur de la coordonnée est de 2 ou 3 caractères
-            s = s.toUpperCase(); // on convertit la coordonnée en majuscule
-            char charColonne = s.charAt(0); // on récupère le premier caractère qui constitue la colonne
+            char charColonne = Character.toUpperCase(s.charAt(0)); // on récupère et convertit le premier caractère qui constitue la colonne de coordonnée en majuscule
             int numLigne = Integer.parseInt(s.substring(1)); // ensuite on récupère le reste de la coordonnée qui constitue la ligne
             if (charColonne >= 'A' && charColonne <= 'Z' && numLigne >= 1 && numLigne <= 26) { // on vérifie que la coordonnée est valide
                 ligne = numLigne - 1; // on affecte les valeurs à la ligne et à la colonne
@@ -30,7 +31,7 @@ public class Coordonnee implements Comparable<Coordonnee> {
         }
     }
 
-    // Methods
+    // Méthodes
     public String toString() {
         char colonneChar = (char) (getColonne() + 'A'); // on ajoute le code ASCII de 'A' à la valeur de la colonne pour avoir le caractère correspondant
         return "" + colonneChar + (getLigne() + 1); // on retourne la coordonnée
@@ -47,15 +48,15 @@ public class Coordonnee implements Comparable<Coordonnee> {
     public boolean equals(Object obj) {
         if (obj instanceof Coordonnee) { // on vérifie que l'objet est une coordonnée
             Coordonnee c = (Coordonnee) obj; // on cast l'objet en coordonnée
-            return (this.ligne == c.getLigne() && this.colonne == c.getColonne()); // on compare les lignes et les colonnes
+            return (ligne == c.getLigne() && colonne == c.getColonne()); // on compare les lignes et les colonnes
         } else {
             return false; // si l'objet n'est pas une coordonnée on retourne false
         }
     }
 
     public boolean voisine(Coordonnee c) {
-        int diffLigne = this.ligne - c.getLigne();
-        int diffColonne = this.colonne - c.getColonne();
+        int diffLigne = ligne - c.getLigne();
+        int diffColonne = colonne - c.getColonne();
 
         if ((diffLigne == 1 || diffLigne == -1) && diffColonne == 0) {
             return true; // voisin sur la même ligne
@@ -67,16 +68,16 @@ public class Coordonnee implements Comparable<Coordonnee> {
     }
 
     public int compareTo(Coordonnee c) {
-        // compare les lignes
-        if (this.ligne < c.getLigne()) {
+        // on compare les lignes
+        if (ligne < c.getLigne()) {
             return -1; // this est plus petit que c
-        } else if (this.ligne > c.getLigne()) {
+        } else if (ligne > c.getLigne()) {
             return 1; // this est plus grand que c
         } else {
             // les lignes sont égales, on compare les colonnes
-            if (this.colonne < c.getColonne()) {
+            if (colonne < c.getColonne()) {
                 return -1; // this est plus petit que c
-            } else if (this.colonne > c.getColonne()) {
+            } else if (colonne > c.getColonne()) {
                 return 1; // this est plus grand que c
             } else {
                 return 0; // this est égal à c
