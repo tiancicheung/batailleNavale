@@ -5,6 +5,7 @@ public class GrilleNavaleGraphique extends GrilleNavale {
     private GrilleGraphique grille;
     public GrilleNavaleGraphique(int taille) {
         // On prend 4 comme valeur de défaut pour nbNavires, car sinon on ne peut pas utiliser super(taille) tout seul
+        // nbNavires = 4, du coup à changer plus tard ?
         super(taille, 4);
         this.grille = new GrilleGraphique(taille);
     }
