@@ -4,7 +4,8 @@ import java.awt.Color; // Pour pouvoir utiliser Color.GREEN, Color.BLUE, Color.R
 public class GrilleNavaleGraphique extends GrilleNavale {
     private GrilleGraphique grille;
     public GrilleNavaleGraphique(int taille) {
-        super(taille);
+        // On prend 4 comme valeur de défaut pour nbNavires, car sinon on ne peut pas utiliser super(taille) tout seul
+        super(taille, 4);
         this.grille = new GrilleGraphique(taille);
     }
     public GrilleGraphique getGrilleGraphique() {
