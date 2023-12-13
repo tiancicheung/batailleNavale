@@ -1,6 +1,9 @@
 package batailleNavale;
 public abstract class JoueurAvecGrille extends Joueur {
     private GrilleNavale grille;
+    public GrilleNavale getGrille() {
+        return grille;
+    }
     public JoueurAvecGrille(GrilleNavale g, String nom) {
         super(g.getTaille(), nom);
         this.grille=g;
