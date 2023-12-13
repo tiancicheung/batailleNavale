@@ -29,4 +29,8 @@ public class FenetreJoueur extends JFrame {
     public GrilleGraphique getGrilleDefense() {
         return this.grilleDefense;
     }
+    public static void main(String[] args) {
+        FenetreJoueur fenetre = new FenetreJoueur("Joueur", 10);
+        fenetre.setVisible(true);
+    }
 }
