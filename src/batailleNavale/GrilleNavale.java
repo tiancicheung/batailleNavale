@@ -161,6 +161,7 @@ public class GrilleNavale {
                 for (int j = 0; j < i; j++) {//is it overlapping another ship or touching it?
                     if (navires[i].chevauche(navires[j]) || navires[i].touche(navires[j]) || navires[j].touche(navires[i])) {
                         c = false;
+                        break;
                     } else {
                         c = true;
                     }
