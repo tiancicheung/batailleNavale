@@ -1,6 +1,5 @@
 package batailleNavale;
 
-package batailleNavale;
 public abstract class JoueurAvecGrille extends Joueur {
     private GrilleNavale grille;
     public JoueurAvecGrille(GrilleNavale g, String nom) {
