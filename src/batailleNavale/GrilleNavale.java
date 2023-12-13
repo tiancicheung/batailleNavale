@@ -197,6 +197,7 @@ public class GrilleNavale {
                 for (int j = 0; j < i; j++) {//is it overlapping another ship or touching it?
                     if (navires[i].chevauche(navires[j]) || navires[i].touche(navires[j]) || navires[j].touche(navires[i])) {
                         c = false;
+                        break;
                     } else {
                         c = true;
                     }
@@ -288,11 +289,11 @@ public class GrilleNavale {
 
 
     public static void main(String[] args) {
-        int[] taillesNavires = {4, 5, 6};
+        int[] taillesNavires = {4, 5, 6,5,5,5};
 
         GrilleNavale grilleNavale2 = new GrilleNavale(10, taillesNavires);
         grilleNavale2.placementAuto(taillesNavires);
-        for (int i= 0; i<3; i++) {
+        for (int i= 0; i<6; i++) {
             System.out.println(grilleNavale2.navires[i]);
         }
         System.out.println(grilleNavale2.toString());

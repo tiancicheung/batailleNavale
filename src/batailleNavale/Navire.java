@@ -50,9 +50,14 @@ public class Navire {
     }
 
     public boolean contient(Coordonnee c) {
-        return (c.compareTo(this.debut) >= 0 && c.compareTo(this.fin) <= 0);
-
-
+        if (this.estVertical()){
+            if (c.getColonne() == this.debut.getColonne() && c.getLigne() >= this.debut.getLigne() && c.getLigne() <= this.fin.getLigne())
+                return true;
+        }else if (!this.estVertical()){
+            if (c.getLigne() == this.debut.getLigne() && c.getColonne() >= this.debut.getColonne() && c.getColonne() <= this.fin.getColonne())
+                return true;
+        }
+        return false;
     }
 
 
@@ -110,11 +115,8 @@ public class Navire {
 
     //Retourne true si et seulement si this a été touché par un tir en c. Pour Navire
     public boolean estTouche(Coordonnee c) {
-        if (partiesTouchees.length < 0) {
-            throw new IllegalArgumentException("Le nombre de parties d'un navire ne peut être inférieur à 0, nombre de parties du navire = " + partiesTouchees.length);
-        }
         for (int i = 0; i < partiesTouchees.length; i++) {
-            if (partiesTouchees[i].equals(c)) {
+            if (partiesTouchees[i] != null &&  partiesTouchees[i].equals(c)) {
                 return true; //si c appartient aux éléments dans partiesTouchees de Navire, ça va return true
             }
         }
