@@ -7,6 +7,7 @@ public abstract class JoueurTexte extends JoueurAvecGrille {
             this.sc = new Scanner(System.in);//inicialiser le scanner
         }
 
+
         public JoueurTexte(GrilleNavale g) {
             super(g);
             this.sc = new Scanner(System.in);
