@@ -1,22 +1,27 @@
 package batailleNavale;
 
+package batailleNavale;
 public abstract class JoueurAvecGrille extends Joueur {
-  // Attributs :
-  private GrilleNavale grille;
-
-  // Constructeurs :
-  public JoueurAvecGrille(GrilleNavale g, String nom) {
-      super(nom);
-      this.grille = g;
-  }
-  public JoueurAvecGrille(GrilleNavale g) {
-      super();
-      this.grille = g;
-  }
-  public void defendre(Coordonnee c) {
-      //TO-DO
-  }
-  public boolean perd() {
-      return false;
-  }
+    private GrilleNavale grille;
+    public JoueurAvecGrille(GrilleNavale g, String nom) {
+        super(g.getTaille(), nom);
+        this.grille=g;
+    }
+    public JoueurAvecGrille(GrilleNavale g) {
+        this(g, "Joueur");
+    }
+    public int defendre(Coordonnee c) {
+        grille.recoitTir(c);
+        if (grille.perdu()) {
+            return GAMEOVER;
+        }
+        if (grille.estCoule(c)) {
+            return COULE;
+        }
+        if (grille.estTouche(c)) {
+            return TOUCHE;
+        } else {
+            return A_L_EAU;
+        }
+    }
 }
