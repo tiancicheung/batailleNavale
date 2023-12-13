@@ -27,7 +27,6 @@ public class GrilleNavale {
         this.nbTirsRecus=0;
     }
 
-    // Méthodes
     public String toString() {
         char[][] grille = new char[taille + 1][taille + 1];
         for (int i = 1; i < taille + 1; i++) {
@@ -104,33 +103,6 @@ public class GrilleNavale {
         return a.toString();
     }
 
-    
-
-    public int getTaille() {
-        return taille;
-    }
-
-    public boolean ajouteNavire(Navire n) {
-        // Vérifier si le navire chevauche, touche un autre navire déjà présent
-        for (int i = 0; i < nbNavires; i++) {
-            if (navires[i] != null && (navires[i].chevauche(n) || n.chevauche(navires[i]) || navires[i].touche(n) || n.touche(navires[i]))) {
-                return false;  // L'ajout est impossible car il y a chevauchement
-            }
-        }
-        // Vérifier si le navire dépasse les limites de la grille
-        if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
-            return false;  // L'ajout est impossible car le navire dépasse les limites
-        }
-        // Ajouter le navire à la grille
-        for (int i = 0; i < nbNavires; i++) {
-            if (navires[i] == null) {
-                navires[i] = n;
-                return true;  // L'ajout a réussi
-            }
-        }
-        return false;  // La grille est pleine, l'ajout est impossible
-    }
-
 
     public void placementAuto(int [] taillesNavires){
         //A tester
@@ -169,7 +141,30 @@ public class GrilleNavale {
             }
         }
     }
+    public int getTaille() {
+        return taille;
+    }
 
+    public boolean ajouteNavire(Navire n) {
+        // Vérifier si le navire chevauche, touche un autre navire déjà présent
+        for (int i = 0; i < nbNavires; i++) {
+            if (navires[i] != null && (navires[i].chevauche(n) || n.chevauche(navires[i]) || navires[i].touche(n) || n.touche(navires[i]))) {
+                return false;  // L'ajout est impossible car il y a chevauchement
+            }
+        }
+        // Vérifier si le navire dépasse les limites de la grille
+        if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
+            return false;  // L'ajout est impossible car le navire dépasse les limites
+        }
+        // Ajouter le navire à la grille
+        for (int i = 0; i < nbNavires; i++) {
+            if (navires[i] == null) {
+                navires[i] = n;
+                return true;  // L'ajout a réussi
+            }
+        }
+        return false;  // La grille est pleine, l'ajout est impossible
+    }
 
     private boolean estDansGrille(Coordonnee c) {
         if (c.getLigne() < taille && c.getLigne() >= 0 && c.getColonne() < taille && c.getColonne() >= 0 )
@@ -212,6 +207,9 @@ public class GrilleNavale {
         return false;
     }
     public boolean estTouche(Coordonnee c) {
+        if (navires == null) {
+            throw new IllegalArgumentException("La grille ne contient aucun navire.");
+        }
         for (int i = 0; i < nbNavires; i++) {
             if (navires[i].estTouche(c)) {
                 return true;
@@ -219,6 +217,7 @@ public class GrilleNavale {
         }
         return false;
     }
+
 
 
     public boolean estALEau(Coordonnee c) {
@@ -247,4 +246,18 @@ public class GrilleNavale {
         return true;
     }
 
+
+    public static void main(String[] args) {
+        int[] taillesNavires = {4, 5, 6,5,5,5};
+
+        GrilleNavale grilleNavale2 = new GrilleNavale(10, taillesNavires);
+        grilleNavale2.placementAuto(taillesNavires);
+        for (int i= 0; i<6; i++) {
+            System.out.println(grilleNavale2.navires[i]);
+        }
+        System.out.println(grilleNavale2.toString());
+
+
+
+    }
 }
