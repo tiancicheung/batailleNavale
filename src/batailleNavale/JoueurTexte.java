@@ -38,4 +38,9 @@ public abstract class JoueurTexte extends JoueurAvecGrille {
             Coordonnee c = new Coordonnee(coord);//créer un objet coordonnée
             return c;//retourner les coordonnées
         }
+
+
+
+    public void ajouteNavire(int i, int i1, int i2, boolean b) {
     }
+}

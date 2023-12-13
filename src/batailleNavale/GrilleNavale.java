@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class GrilleNavale {
     // Attributs
-    private Navire[] navires;
+    Navire[] navires;
     private int nbNavires;
     private int taille;
     private Coordonnee[] tirsRecus;
@@ -200,13 +200,13 @@ public class GrilleNavale {
     }
 
 
-    private boolean estDansGrille(Coordonnee c) {
+    boolean estDansGrille(Coordonnee c) {
         if (c.getLigne() < taille && c.getLigne() >= 0 && c.getColonne() < taille && c.getColonne() >= 0 )
             return true;
         return false;
     }
 
-    private boolean estDansTirsRecus(Coordonnee c) {
+    boolean estDansTirsRecus(Coordonnee c) {
         for (int i = 0; i < nbTirsRecus; i++) {
             if (tirsRecus[i].equals(c))
                 return true;
