@@ -146,39 +146,7 @@ public class GrilleNavale {
         }
         return a.toString();
     }
-    public void placementAuto(int[] taillesNavires) {
-        //A tester
-        boolean b = false;
-        while (b == false) {
-            navires[0] = new Navire(new Coordonnee((int) (Math.random() * (taille - 1)), (int) (Math.random() * (taille - 1))), taillesNavires[0], Math.random() < 0.5);
-            if (navires[0].estVertical()) {
-                b = navires[0].getDebut().getLigne() <= taille - taillesNavires[0];
-            } else {
-                b = navires[0].getDebut().getColonne() <= taille - taillesNavires[0];
-            }
-        }
-        for (int i = 1; i < taillesNavires.length; i++) {
-            boolean c = false;
-            while (c == false) {
-                boolean a = false;
-                while (a == false) {
-                    navires[i] = new Navire(new Coordonnee((int) (Math.random() * (taille - 1)), (int) (Math.random() * (taille - 1))), taillesNavires[i], Math.random() < 0.5);
-                    if (navires[i].estVertical()) {
-                        a = navires[i].getDebut().getLigne() <= taille - taillesNavires[i];
-                    } else {
-                        a = navires[i].getDebut().getColonne() <= taille - taillesNavires[i];
-                    }
-                }
-                for (int j = 0; j < i; j++) {
-                    if (navires[i].chevauche(navires[j]) || navires[i].touche(navires[j]) || navires[j].touche(navires[i])) {
-                        c = false;
-                    } else {
-                        c = true;
-                    }
-                }
-            }
-        }
-    }
+
 
     public void placementAuto(int [] taillesNavires){
         //A tester
