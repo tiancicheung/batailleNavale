@@ -248,7 +248,7 @@ public class GrilleNavale {
 
 
     public static void main(String[] args) {
-        int[] taillesNavires = {4, 5, 6,5,5,5};
+        int[] taillesNavires = {2, 2, 3, 3, 3, 4};
 
         GrilleNavale grilleNavale2 = new GrilleNavale(10, taillesNavires);
         grilleNavale2.placementAuto(taillesNavires);
