@@ -1,4 +1,8 @@
 package batailleNavale;
+
+import java.awt.Color; // Pour pouvoir utiliser Color.GREEN, Color.BLUE, Color.RED
+import javax.swing.*;
+
 public class JoueurGraphique extends JoueurAvecGrille {
     private GrilleGraphique grilleTirs;
     public JoueurGraphique(GrilleNavaleGraphique grilleDefense, GrilleGraphique grilleTirs, String nom) {
