@@ -7,7 +7,6 @@ public class JoueurAuto extends JoueurAvecGrille {
         super(g);
     }
     protected void retourAttaque(Coordonnee c, int etat) {
-
     }
     protected void retourDefense(Coordonnee c, int etat) {
 
