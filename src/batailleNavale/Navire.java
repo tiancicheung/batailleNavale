@@ -5,7 +5,7 @@ public class Navire {
     private Coordonnee debut;
     private Coordonnee fin;
     private Coordonnee[] partiesTouchees;
-    private int nbTouchees;
+    int nbTouchees;
 
 
     public Navire(Coordonnee debut, int longueur, boolean estVertical) {
