@@ -226,7 +226,7 @@ public class JoueurAuto extends JoueurAvecGrille {
                 int colone = cibleNavireIllusion.getDebut().getColonne();
                 int b = cibleNavireIllusion.getDebut().getLigne() - 1;
                 int c = cibleNavireIllusion.getDebut().getLigne() + taille;
-                if (b > 0) {
+                if (b >= 0) {
                     coordonnee1 = new Coordonnee(b, colone);
                 } else {
                     coordonnee1 = cibleNavireIllusion.getDebut();
@@ -240,7 +240,7 @@ public class JoueurAuto extends JoueurAvecGrille {
                 int linge = cibleNavireIllusion.getDebut().getLigne();
                 int b = cibleNavireIllusion.getDebut().getColonne() - 1;
                 int c = cibleNavireIllusion.getDebut().getColonne() + taille;
-                if (b > 0) {
+                if (b >= 0) {
                     coordonnee1 = new Coordonnee(linge, b);
                 } else {
                     coordonnee1 = cibleNavireIllusion.getDebut();
