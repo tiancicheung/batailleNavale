@@ -37,7 +37,8 @@ public abstract class Joueur {
     }
 
     public void jouerAvec(Joueur j) {
-        adversaire = j;
+        this.adversaire = j;
+        j.adversaire = this;
         deroulementJeu(this, j);
     }
 
@@ -61,4 +62,6 @@ public abstract class Joueur {
     public abstract Coordonnee choixAttaque();
 
     public abstract int defendre(Coordonnee c);
+
+
 }

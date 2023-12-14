@@ -3,15 +3,9 @@ package batailleNavale;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.color.*;
 import javax.swing.border.TitledBorder;
 
 public class FenetreJoueur extends JFrame {
-    private JPanel contentPane;
-    private GrilleGraphique grilleTirs;
-    private GrilleNavaleGraphique grilleDefense;
 
 
 
@@ -27,8 +21,15 @@ public class FenetreJoueur extends JFrame {
         pTir.setBorder(new TitledBorder(null, "Grille de Tirs :", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         getContentPane().add(pTir);
 
+        gDef.setClicActive(false);
         JPanel pDef = gDef;
+        pDef.setBorder(new TitledBorder(null, "Grille de Defense :", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         getContentPane().add(pDef);
+
+    }
+
+    public static void main(String[] args) {
+        FenetreJoueur test = new FenetreJoueur();
 
     }
 

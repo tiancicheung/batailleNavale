@@ -3,201 +3,172 @@ package batailleNavale;
 import java.util.Random;
 
 public class GrilleNavale {
-    // Attributs
-    private Navire[] navires;
-    private int nbNavires;
-    private int taille;
-    private Coordonnee[] tirsRecus;
-    private int nbTirsRecus;
+    private Navire[] navires;// tableau des navires présents dans la grille
+    private int nbNavires;// nombre de navires présents dans la grille
+    private int taille;// taille de la grille
+    private Coordonnee[] tirsRecus; // tableau des tirs reçus
+    private int nbTirsRecus; // nombre de tirs reçus
 
-    // Constructeurs
     public GrilleNavale(int taille, int[] taillesNavires) {
-        this.taille = taille;
+        // permet d'obtenir une grille navale de taille taille dans laquelle ont été placés automatiquement taillesNavires.length navires dont les tailles sont données dans taillesNavires.
+        if (taille<5 || taille>26)
+            throw new IllegalArgumentException("choisir une taille entre 5 et 26"); //Vérifie la taille de la grille
+        for (int i = 0 ; i<taillesNavires.length ; i++) //vérifie si les navires sont au moins de taille 1
+            if (taillesNavires[i]<1)
+                throw new IllegalArgumentException("taille minimale navire : 1");
+        this.navires = new Navire[taillesNavires.length]; //LONGUEUR EXPECTED - 1
         this.nbNavires = 0;
-        this.navires = new Navire[taillesNavires.length];
-        this.tirsRecus = new Coordonnee[taille * taille];
-        this.nbTirsRecus=0;
-    }
+        this.taille = taille;
+        tirsRecus = new Coordonnee[10];
+        nbTirsRecus = 0;
+       this.placementAuto(taillesNavires);
 
+    }
     public GrilleNavale(int taille, int nbNavires) {
+        if (taille <= 0 || taille > 26) {
+            throw new IllegalArgumentException("Taille invalide.");
+        }
+        if (nbNavires <= 0 || nbNavires > taille * taille) {
+            throw new IllegalArgumentException("Nombre de navire est invalid.");
+        }
         this.taille = taille;
         this.nbNavires = 0;
         this.navires = new Navire[nbNavires];
         this.tirsRecus = new Coordonnee[taille * taille];
         this.nbTirsRecus=0;
     }
+//public GrilleNavale(int taille, int[] taillesNavires) {
+//    if (taille <= 0 || taille > 26) {
+//        throw new IllegalArgumentException("Taille invalide.");
+//    }
+//    for (int i = 0 ; i<taillesNavires.length ; i++) {
+//        if (taillesNavires[i] <= 0) {
+//            throw new IllegalArgumentException("La taille minimale du navire doit dépasser 0");
+//        }
+//    }
+//    this.taille = taille;
+//    this.nbNavires = 0;
+//    this.navires = new Navire[taillesNavires.length];
+//    this.tirsRecus = new Coordonnee[taille * taille];
+//    this.nbTirsRecus=0;
+//}
 
-    //
-        public int getTaille() {
-            return taille;
-        }
-
-        public boolean ajouteNavire(Navire n) {
-            if (n == null) {
-                throw new IllegalArgumentException("Le navire est null.");
-            }
-            // Vérifier si le navire chevauche, touche un autre navire déjà présent
-            for (int i = 0; i < navires.length; i++) {
-                if (navires[i] != null && (navires[i].chevauche(n) || n.chevauche(navires[i]) || navires[i].touche(n) || n.touche(navires[i]))) {
-                    return false;  // L'ajout est impossible car il y a chevauchement
-                }
-            }
-            // Vérifier si le navire dépasse les limites de la grille
-            if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
-                return false;  // L'ajout est impossible car le navire dépasse les limites
-            }
-            // Ajouter le navire
-            navires[nbNavires] = n;
-            nbNavires++;
-            return true;  // L'ajout a réussi
-        }
-    // Méthodes
+//    public GrilleNavale(int taille, int nbNavires) {
+//        // permet d'obtenir une grille navale vide de taille taille pouvant accueillir jusqu'à nbNavires.
+//        if (taille<5 || taille>26) //vérifie la taille de la grille
+//            throw new IllegalArgumentException("choisir une taille entre 5 et 26");
+//        if (nbNavires < 1)
+//            throw new IllegalArgumentException("nombre minimum navires : 1");
+//        this.navires = new Navire[nbNavires];//Dans la sous-classe GNGraphique, nb=5. PB si ListeNavire.length=6
+//        this.nbNavires = 0;
+//        this.taille = taille;
+//        tirsRecus = new Coordonnee[10];
+//        nbTirsRecus = 0;
+//    }
     public String toString() {
-        char[][] grille = new char[taille + 1][taille + 1];
-        for (int i = 1; i < taille + 1; i++) {
-            grille[0][i] = (char) ((int) ('A') + i - 1);
-        }
-        // Ajout de l'en-tête avec les lettres des colonnes
-        //TODO: Ajouter les chiffres des lignes
-        for (int i = 1; i < taille + 1; i++) {
-            grille[i][0] = Character.forDigit(i, 10);
-        }
-        if (this.tirsRecus == null) {
-
-        } else {
-            for (int i = 0; i < nbTirsRecus; i++) {
-                grille[tirsRecus[i].getLigne()][tirsRecus[i].getColonne()] = '◯';
+        char[][] grille = new char[taille][taille];
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                grille[i][j] = '·'; // 初始化为水域
             }
         }
 
+        // 标记船只位置
+        for (Navire navire : navires) {
+            if (navire != null) {
+                Coordonnee debut = navire.getDebut();
+                Coordonnee fin = navire.getFin();
+                boolean estVertical = navire.estVertical();
 
-        if (navires[0]!=null ) {
+                int startRow = debut.getLigne();
+                int endRow = estVertical ? fin.getLigne() : startRow;
+                int startCol = debut.getColonne();
+                int endCol = estVertical ? startCol : fin.getColonne();
 
+                for (int i = startRow; i <= endRow; i++) {
+                    for (int j = startCol; j <= endCol; j++) {
+                        Coordonnee c = new Coordonnee(i, j);
+                        if (estTouche(c)) {
+                            grille[i][j] = 'X'; // 船只被击中
+                        } else {
+                            grille[i][j] = '#'; // 船只未被击中
+                        }
+                    }
+                }
+            }
+        }
+
+        // 构建字符串表示
+        StringBuilder sb = new StringBuilder();
+        sb.append("   "); // 列号前的空格
+        for (int i = 0; i < taille; i++) {
+            sb.append((char) ('A' + i)).append(" "); // 列号
+        }
+        sb.append("\n");
+
+        for (int i = 0; i < taille; i++) {
+            sb.append(String.format("%2d ", i + 1)); // 行号
+            for (int j = 0; j < taille; j++) {
+                sb.append(grille[i][j]).append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+
+
+    public int getTaille() {
+        return taille;
+    }
+
+
+    public boolean ajouteNavire(Navire n) {
+        if (n == null) {
+            throw new IllegalArgumentException("Le navire est null.");
+        }
+        // Vérifier si le navire chevauche, touche un autre navire déjà présent
         for (int i = 0; i < nbNavires; i++) {
-            if (navires[i] != null && navires[i].estVertical()) {
-                // vertical
-                int startLigne = navires[i].getDebut().getLigne() + 1;
-                int startColonne = navires[i].getDebut().getColonne() + 1;
-                int length = Math.abs(navires[i].getDebut().getLigne() - navires[i].getFin().getLigne()) + 1;
-
-                for (int j = 0; j < length; j++) {
-                    int currentLigne = startLigne + j;
-                    int currentColonne = startColonne;
-
-                    if (currentLigne < grille.length && currentColonne < grille[currentLigne].length) {
-                        Coordonnee b = new Coordonnee(currentLigne, currentColonne);
-                        if (estTouche(b)) {
-                            grille[currentLigne][currentColonne] = 'X';
-                        } else {
-                            grille[currentLigne][currentColonne] = '#';
-                        }
-                    }
-                }
-            } else {
-                // orientation horizontale
-                int startLigne = navires[i].getDebut().getLigne() + 1;
-                int startColonne = navires[i].getDebut().getColonne() + 1;
-                int length = Math.abs(navires[i].getDebut().getColonne() - navires[i].getFin().getColonne()) + 1;
-
-                for (int j = 0; j < length; j++) {
-                    int currentLigne = startLigne;
-                    int currentColonne = startColonne + j;
-
-                    if (currentLigne < grille.length && currentColonne < grille[currentLigne].length) {
-                        Coordonnee b = new Coordonnee(currentLigne, currentColonne);
-                        if (estTouche(b)) {
-                            grille[currentLigne][currentColonne] = 'X';
-                        } else {
-                            grille[currentLigne][currentColonne] = '#';
-                        }
-                    }
-                }
+            if (navires[i] != null && (navires[i].chevauche(n) || n.chevauche(navires[i]) || navires[i].touche(n) || n.touche(navires[i]))) {
+                return false;  // L'ajout est impossible car il y a chevauchement
             }
         }
-    }
-        for (int i = 1; i < taille + 1; i++) {
-            for (int j = 1; j < taille + 1; j++) {
-                if (grille[i][j] == '\u0000') {
-                    grille[i][j] = '·';
-                }
-            }
+//        // Vérifier si le navire dépasse les limites de la grille, cette code est fausse mais pour quoi ?
+        if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
+            return false;  // L'ajout est impossible car le navire dépasse les limites
         }
-        grille[0][0] = ' ';
-        StringBuilder a = new StringBuilder();
-        a.append(" ");
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < taille + 1; j++) {
-
-                a.append(grille[i][j]);
-                a.append("  ");
+        //la ancienne version ne augumente pas la taille du tableau navires, ainsi provoque une erreur de dépassement de indice
+        //une ajoute de taille de tableau navires est nécessaire, ci-dessous est la nouvelle version
+        if (navires.length == nbNavires) {
+           Navire[] a = new Navire[navires.length+5];//augumenter la taille du tableau navires
+            for (int i=0 ; i<nbNavires ; i++) {
+                a[i] = navires[i];
             }
-            a.append("\n");
+            navires = a;//renouveler la liste navires en associant à une nouvelle liste a
         }
-
-        for (int i = 1; i < taille + 1; i++) {
-            if (i < 10) {
-                a.append(" ");
-            }
-            a.append(i);
-            a.append("  ");
-            for (int j = 1; j < taille + 1; j++) {
-
-                a.append(grille[i][j]);
-                a.append("  ");
-            }
-            a.append("\n");
-        }
-        return a.toString();
+        // Ajouter le navire
+        navires[nbNavires] = n;
+        nbNavires++;
+        return true;  // L'ajout a réussi
     }
 
-
-    public void placementAuto(int [] taillesNavires){
-        //A tester
-        boolean b = false;
-        while (b == false) {
-            navires[0] = new Navire(new Coordonnee((int) (Math.random() * (taille - 1)), (int) (Math.random() * (taille - 1))), taillesNavires[0], Math.random() < 0.5);
-            if (navires[0].estVertical()) {
-                b = navires[0].getDebut().getLigne() <= taille - taillesNavires[0];
-            } else {
-                b = navires[0].getDebut().getColonne() <= taille - taillesNavires[0];
+    public void placementAuto(int[] taillesNavires) {
+        // Place automatiquement et aléatoirement taillesNavires.length navires dont les tailles sont données dans taillesNavire.
+        for (int i = 0; i < taillesNavires.length; ){
+            if (this.ajouteNavire(new Navire(new Coordonnee((int) (Math.random() * (taille - 1)), (int) (Math.random() * (taille - 1))), taillesNavires[0], Math.random() < 0.5)))
+            {
+                i++;
             }
         }
-
-        for (int i = 1; i < taillesNavires.length; i++) {
-            boolean c = false;
-            while (c == false) {
-                boolean a = false;
-                while (a == false) {
-                    navires[i] = new Navire(new Coordonnee((int) (Math.random() * (taille - 1)), (int) (Math.random() * (taille - 1))), taillesNavires[i], Math.random() < 0.5);
-                    //is it a vertical ship?
-                    if (navires[i].estVertical()) {
-                        a = navires[i].getDebut().getLigne() <= taille - taillesNavires[i];
-                    } else {
-                        //is it a horizontal ship?
-                        a = navires[i].getDebut().getColonne() <= taille - taillesNavires[i];
-                    }
-                }
-                for (int j = 0; j < i; j++) {//is it overlapping another ship or touching it?
-                    if (navires[i].chevauche(navires[j]) || navires[i].touche(navires[j]) || navires[j].touche(navires[i])) {
-                        c = false;
-                        break;
-                    } else {
-                        c = true;
-                        nbNavires++;
-                    }
-                }
-            }
-        }
-    }
-
+  }
 
     private boolean estDansGrille(Coordonnee c) {
-        if (c.getLigne() < taille && c.getLigne() >= 0 && c.getColonne() < taille && c.getColonne() >= 0 )
-            return true;
-        return false;
+        // Retourne true si et seulement si c est dans this.
+        return (c.getColonne() < taille && c.getLigne() < taille);
     }
 
     private boolean estDansTirsRecus(Coordonnee c) {
+        // Retourne true si et seulement si c correspond à un tir reçu par this.
         for (int i = 0; i < nbTirsRecus; i++) {
             if (tirsRecus[i].equals(c))
                 return true;
@@ -206,70 +177,90 @@ public class GrilleNavale {
     }
 
     private boolean ajouteDansTirsRecus(Coordonnee c) {
-        if (estDansTirsRecus(c)){
-            return false;}
-        for (int i = 0; i < nbTirsRecus; i++) {
-            if (tirsRecus[i].equals(c)) {
-                return false;
-            }
-        }
-        tirsRecus[nbTirsRecus] = c;
-        nbTirsRecus++;
-        return true;
-    }
+        // Ajoute c aux tirs reçus de this si nécessaire. Retourne true si et seulement si this est modifié.
 
+        // Vérif si tableau tirsRecus pleint, dans ce cas, ajoute 10 slots
+        if (tirsRecus.length == nbTirsRecus) {
+            Coordonnee[] tab = new Coordonnee[tirsRecus.length+10];
+            for (int i = 0; i < nbTirsRecus; i++) {
+                tab[i] = tirsRecus[i];
+            }
+            tirsRecus = tab;
+        }
+        // Si le tir n'est pas déjà reçu sur c, alors enregistre et incrémente nbTirsRecus + return true
+        if (!(this.estDansTirsRecus(c))) {
+            tirsRecus[nbTirsRecus] = c;
+            nbTirsRecus ++;
+            return true;
+        }
+        return false;
+    }
 
     public boolean recoitTir(Coordonnee c) {
-        if (!estDansTirsRecus(c) && !estTouche(c)) {
-            ajouteDansTirsRecus(c);
-            for (int i = 0; i < nbNavires; i++) {
-                if (navires[i].contient(c)) {
-                    return navires[i].recoitTir(c);
-                }
-            }
+        // Ajoute c aux tirs reçus de this si nécessaire. Retourne true si et seulement si c ne correspondait pas déjà à un tir reçu et a permis de toucher un navire de this.
+        if (!(this.estDansTirsRecus(c))) {
+            for (int i = 0; i < nbNavires; i++)
+                // pas ce recoitTir, mais celui de navires !
+                if (navires[i].recoitTir(c))
+                    return true;
         }
         return false;
+
     }
+
     public boolean estTouche(Coordonnee c) {
-        if (navires == null) {
-            throw new IllegalArgumentException("La grille ne contient aucun navire.");
-        }
+        // Retourne true si et seulement si un des navires présents dans this a été touché en c.
         for (int i = 0; i < nbNavires; i++) {
-            if (navires[i].contient(c)) {
-                return navires[i].estTouche(c);
-            }
+            if (navires[i].estTouche(c))
+                return true;
         }
         return false;
-
-
     }
-
-
 
     public boolean estALEau(Coordonnee c) {
-        return estDansGrille(c) && !estTouche(c);
+        // Retourne true si et seulement si c correspond à un tir reçu dans l'eau par this.
+        for (int i = 0; i < nbNavires; i++) {
+            if (navires[i].estTouche(c))
+                return false;
+        }
+        return true;
+
     }
 
-
     public boolean estCoule(Coordonnee c) {
-        for (int i = 0; i < nbNavires; i++){
-            if (navires[i].contient(c)){
-                if (navires[i].estCoule()){
-                    return true;
-                }
-            }
+        // Retourne true si et seulement si un des navires présents dans this a été touché en c et est coulé.
+        for (int i = 0; i < nbNavires; i++) {
+            if (navires[i].contient(c) && navires[i].estCoule())//navires[i].estTouche(c) &&
+                return true;
         }
         return false;
     }
 
-
     public boolean perdu() {
-        for (int i = 0; i < nbNavires; i++){
-            if (!navires[i].estCoule()){
+        //Retourne true si et seulement si tous les navires de this ont été coulés.
+        for (int i = 0; i < nbNavires; i++) {
+            if (!(navires[i].estCoule()))
                 return false;
-            }
         }
         return true;
+    }
+
+
+    public int[] getTailleSelonGrille() {
+        int[] TailleSelonGrille = null;
+        if (taille >= 5 && taille < 10) {
+            TailleSelonGrille = new int[] {2, 3};
+        }
+        else if (taille >= 10 && taille < 15) {
+            TailleSelonGrille = new int[] {2, 2, 3, 3, 4};
+        }
+        else if (taille >= 15 && taille < 20) {
+            TailleSelonGrille = new int[] {2, 2, 3, 3, 4, 4, 5};
+        }
+        else {
+            TailleSelonGrille = new int[] {2, 2, 3, 3, 4, 4, 5, 5, 6};
+        }
+        return TailleSelonGrille;
     }
 
 

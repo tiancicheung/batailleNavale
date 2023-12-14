@@ -9,7 +9,7 @@ public class Coordonnee implements Comparable<Coordonnee> {
     public Coordonnee(int ligne, int colonne) { // on vérifie que la ligne et la colonne sont positives
         if (ligne < 0 || colonne < 0) {
             throw new IllegalArgumentException("Coordonnée négative ne peut pas être acceptée.");
-        } else if (ligne > 25 || colonne > 25) { // on vérifie que la ligne et la colonne sont inférieures à 25
+        } else if (ligne > 26 || colonne > 26) { // on vérifie que la ligne et la colonne sont inférieures à 25
             throw new IllegalArgumentException("Coordonnée supérieure à 25 ne peut pas être acceptée.");
         }
         this.ligne = ligne; // on affecte les valeurs à la ligne et à la colonne

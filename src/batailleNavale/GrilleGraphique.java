@@ -158,8 +158,4 @@ public class GrilleGraphique extends JPanel implements ActionListener {
         return coordonneeSelectionnee;
     }
 
-    //j'ai rajouté cette méthode pour savoir si la case est déjà rouge!!!
-    public boolean alreadlyRed(Coordonnee c, Color red) {
-        return cases[c.getLigne()][c.getColonne()].getBackground().equals(red);
-    }
 }
