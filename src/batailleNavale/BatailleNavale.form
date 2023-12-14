@@ -55,7 +55,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="e6540" class="javax.swing.JRadioButton" binding="joueurGraphiqueRadioButton" default-binding="true">
+      <component id="e6540" class="javax.swing.JRadioButton" binding="J1GraphiqueRbtn">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -63,7 +63,7 @@
           <text value="Joueur graphique"/>
         </properties>
       </component>
-      <component id="d9117" class="javax.swing.JRadioButton" binding="joueurTexteRadioButton" default-binding="true">
+      <component id="d9117" class="javax.swing.JRadioButton" binding="J1texteRbtn">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -71,7 +71,7 @@
           <text value="Joueur Texte"/>
         </properties>
       </component>
-      <component id="63795" class="javax.swing.JRadioButton" binding="joueurAutoRadioButton" default-binding="true">
+      <component id="63795" class="javax.swing.JRadioButton" binding="J1autoRbtn">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -103,7 +103,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="e066e" class="javax.swing.JRadioButton" binding="joueurGraphiqueRadioButton1" default-binding="true">
+      <component id="e066e" class="javax.swing.JRadioButton" binding="J2graphiqueRbtn">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -111,7 +111,7 @@
           <text value="Joueur graphique"/>
         </properties>
       </component>
-      <component id="5a7ca" class="javax.swing.JRadioButton" binding="joueurTexteRadioButton1" default-binding="true">
+      <component id="5a7ca" class="javax.swing.JRadioButton" binding="J2texteRbtn">
         <constraints>
           <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -119,7 +119,7 @@
           <text value="Joueur Texte"/>
         </properties>
       </component>
-      <component id="e8a3c" class="javax.swing.JRadioButton" binding="joueurAutoRadioButton1" default-binding="true">
+      <component id="e8a3c" class="javax.swing.JRadioButton" binding="J2autoRbtn">
         <constraints>
           <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
