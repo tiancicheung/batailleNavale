@@ -46,7 +46,7 @@ public class GrilleNavale {
             if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
                 return false;  // L'ajout est impossible car le navire dépasse les limites
             }
-            // Ajouter le navire à la grille
+            // Ajouter le navire
             navires[nbNavires] = n;
             nbNavires++;
             return true;  // L'ajout a réussi
@@ -206,6 +206,8 @@ public class GrilleNavale {
     }
 
     private boolean ajouteDansTirsRecus(Coordonnee c) {
+        if (estDansTirsRecus(c)){
+            return false;}
         for (int i = 0; i < nbTirsRecus; i++) {
             if (tirsRecus[i].equals(c)) {
                 return false;
@@ -218,26 +220,28 @@ public class GrilleNavale {
 
 
     public boolean recoitTir(Coordonnee c) {
-        if (!this.estDansTirsRecus(c)) {
-            for (int i = 0; i < nbNavires; i++)
-                
-                if (navires[i].recoitTir(c))
-                    return true;
+        if (!estDansTirsRecus(c) && !estTouche(c)) {
+            ajouteDansTirsRecus(c);
+            for (int i = 0; i < nbNavires; i++) {
+                if (navires[i].contient(c)) {
+                    return navires[i].recoitTir(c);
+                }
+            }
         }
         return false;
     }
-
-    
     public boolean estTouche(Coordonnee c) {
         if (navires == null) {
             throw new IllegalArgumentException("La grille ne contient aucun navire.");
         }
         for (int i = 0; i < nbNavires; i++) {
-            if (navires[i].estTouche(c)) {
-                return true;
+            if (navires[i].contient(c)) {
+                return navires[i].estTouche(c);
             }
         }
         return false;
+
+
     }
 
 
@@ -249,7 +253,7 @@ public class GrilleNavale {
 
     public boolean estCoule(Coordonnee c) {
         for (int i = 0; i < nbNavires; i++){
-            if (navires[i].estTouche(c)){
+            if (navires[i].contient(c)){
                 if (navires[i].estCoule()){
                     return true;
                 }
@@ -267,4 +271,6 @@ public class GrilleNavale {
         }
         return true;
     }
+
+
 }
