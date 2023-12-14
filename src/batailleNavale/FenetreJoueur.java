@@ -25,6 +25,7 @@ public class FenetreJoueur extends JFrame {
         getContentPane().add(pTir);
 
         JPanel pDef = gDef;
+        pDef.setBorder(new TitledBorder(null, "Grille de Defense :", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         getContentPane().add(pDef);
 
     }
