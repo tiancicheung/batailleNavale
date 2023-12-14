@@ -1,0 +1,100 @@
+package batailleNavale;
+
+import java.awt.Color; // Pour pouvoir utiliser Color.GREEN, Color.BLUE, Color.RED
+import javax.swing.JFrame;
+
+public class GrilleNavaleGraphique extends GrilleNavale {
+    private GrilleGraphique grille;
+
+    public GrilleNavaleGraphique(int taille) {
+        super(taille, 5);
+        grille = new GrilleGraphique(taille);
+    }
+
+    public GrilleGraphique getGrilleGraphique() {
+        return this.grille;
+
+    }
+
+    //  Methodes :
+    public boolean ajouteNavire(Navire n) {
+        boolean ajouterNavire = super.ajouteNavire(n);
+
+        if (ajouterNavire) {
+            // Colorier les cases du navire en vert (Color.GREEN)
+            Coordonnee debut = n.getDebut();
+            Coordonnee fin = n.getFin();
+            grille.colorie(debut, fin, Color.GREEN);
+        }
+
+        return ajouterNavire;
+    }
+
+    public boolean recoitTir(Coordonnee c) {
+        boolean tirRecu = super.recoitTir(c);
+
+        if (tirRecu) {
+            // Colorie la case en rouge (Color.RED) si le tir touche un navire
+            grille.colorie(c, Color.RED);
+        } else {
+            // Colorie la case en bleu (Color.BLUE) si le tir touche l'eau
+            //但还有可能是你打中了你之前打过的地方，return也是false, 直接涂成蓝色会混淆两者所以要判断一下。就是说，倘若你点到了你之前打过的地方，那么你就不要涂成蓝色了，因为你之前打过的地方已经是红色了。
+            if (grille.alreadlyRed(c, Color.RED)) {
+                return tirRecu;
+            }
+            grille.colorie(c, Color.BLUE);
+        }
+        return tirRecu;
+    }
+
+
+    //  Test :
+//    public static void main(String[] args) {
+//        // Créez une grille navale graphique de taille 10
+//        GrilleNavaleGraphique grilleNavaleGraphique = new GrilleNavaleGraphique(15);
+//
+//        // Ajoutez quelques navires à la grille
+//        Navire navire1 = new Navire(new Coordonnee(0, 0), 3, true);
+//        Navire navire2 = new Navire(new Coordonnee(5, 5), 4, false);
+//
+//        grilleNavaleGraphique.ajouteNavire(navire1);
+//        grilleNavaleGraphique.ajouteNavire(navire2);
+//
+//        // Affichez la grille graphique
+//        GrilleGraphique grilleGraphique = grilleNavaleGraphique.getGrilleGraphique();
+//        grilleGraphique.setClicActive(false); // Désactivez les clics pour l'instant
+//        JFrame frame = new JFrame("Test GrilleNavaleGraphique");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.getContentPane().add(grilleGraphique);
+//        frame.pack();
+//        frame.setVisible(true);
+//
+//        // Attendez un moment pour que la fenêtre soit visible (peut nécessiter des ajustements)
+//        try {
+//            Thread.sleep(20);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Réactivez les clics
+//        grilleGraphique.setClicActive(true);
+//
+//        // Effectuez des tirs (vous devrez cliquer sur la grille dans la fenêtre)
+//        for (int i = 0; i < 15; i++) {
+//            Coordonnee tir = grilleGraphique.getCoordonneeSelectionnee();
+//            grilleNavaleGraphique.recoitTir(tir);
+//            // Vous pouvez également ajouter des pauses entre les tirs pour mieux voir les changements
+//            try {
+//                Thread.sleep(10);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        // Fermez la fenêtre après le test
+//        frame.dispose();
+//    }
+
+
+}
+

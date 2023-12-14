@@ -1,6 +1,6 @@
 package batailleNavale;
 import java.util.Scanner;
-public abstract class JoueurTexte extends JoueurAvecGrille {
+public class JoueurTexte extends JoueurAvecGrille {
     private Scanner sc;
     public JoueurTexte(GrilleNavale g, String nom) {
         super(g, nom);

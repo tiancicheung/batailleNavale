@@ -81,7 +81,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
     /**
      * Colorie la case indiquée par la coordonnée
      *
-     * @param //coord
+     * @param cord
      *            la coordonnée de la case à colorier
      * @param color
      *            la couleur de la case
@@ -158,4 +158,8 @@ public class GrilleGraphique extends JPanel implements ActionListener {
         return coordonneeSelectionnee;
     }
 
+    //j'ai rajouté cette méthode pour savoir si la case est déjà rouge!!!
+    public boolean alreadlyRed(Coordonnee c, Color red) {
+        return cases[c.getLigne()][c.getColonne()].getBackground().equals(red);
+    }
 }

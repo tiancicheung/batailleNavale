@@ -5,7 +5,8 @@ public class Navire {
     private Coordonnee debut;
     private Coordonnee fin;
     private Coordonnee[] partiesTouchees;
-    private int nbTouchees;
+    int nbTouchees;
+    int taille;
 
 
     public Navire(Coordonnee debut, int longueur, boolean estVertical) {
@@ -19,6 +20,7 @@ public class Navire {
             this.fin = new Coordonnee(debut.getLigne(), debut.getColonne() + longueur - 1);
         this.partiesTouchees = new Coordonnee[longueur];
         this.nbTouchees = 0;
+        taille = longueur;
 
     }
 

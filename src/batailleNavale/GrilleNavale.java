@@ -46,15 +46,10 @@ public class GrilleNavale {
             if (!estDansGrille(n.getDebut()) || !estDansGrille(n.getFin())) {
                 return false;  // L'ajout est impossible car le navire dépasse les limites
             }
-            // Ajouter le navire à la grille
-            for (int i = 0; i < navires.length; i++) {
-                if (navires[i] == null) {
-                    navires[i] = n;
-                    nbNavires++;
-                    return true;  // L'ajout a réussi
-                }
-            }
-            return false;  // La grille est pleine, l'ajout est impossible
+            // Ajouter le navire
+            navires[nbNavires] = n;
+            nbNavires++;
+            return true;  // L'ajout a réussi
         }
     // Méthodes
     public String toString() {
@@ -211,6 +206,8 @@ public class GrilleNavale {
     }
 
     private boolean ajouteDansTirsRecus(Coordonnee c) {
+        if (estDansTirsRecus(c)){
+            return false;}
         for (int i = 0; i < nbTirsRecus; i++) {
             if (tirsRecus[i].equals(c)) {
                 return false;
@@ -223,17 +220,14 @@ public class GrilleNavale {
 
 
     public boolean recoitTir(Coordonnee c) {
-        if (estDansTirsRecus(c)){
-            return false;
-        }else{
+        if (!estDansTirsRecus(c) && !estTouche(c)) {
+            ajouteDansTirsRecus(c);
             for (int i = 0; i < nbNavires; i++) {
                 if (navires[i].contient(c)) {
-                    ajouteDansTirsRecus(c);
-                    return true;
+                    return navires[i].recoitTir(c);
                 }
             }
         }
-        ajouteDansTirsRecus(c);
         return false;
     }
     public boolean estTouche(Coordonnee c) {
@@ -241,11 +235,13 @@ public class GrilleNavale {
             throw new IllegalArgumentException("La grille ne contient aucun navire.");
         }
         for (int i = 0; i < nbNavires; i++) {
-            if (navires[i].estTouche(c)) {
-                return true;
+            if (navires[i].contient(c)) {
+                return navires[i].estTouche(c);
             }
         }
         return false;
+
+
     }
 
 
@@ -257,7 +253,7 @@ public class GrilleNavale {
 
     public boolean estCoule(Coordonnee c) {
         for (int i = 0; i < nbNavires; i++){
-            if (navires[i].estTouche(c)){
+            if (navires[i].contient(c)){
                 if (navires[i].estCoule()){
                     return true;
                 }
@@ -275,4 +271,6 @@ public class GrilleNavale {
         }
         return true;
     }
+
+
 }
