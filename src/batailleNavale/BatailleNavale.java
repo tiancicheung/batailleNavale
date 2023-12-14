@@ -39,19 +39,22 @@ public class BatailleNavale {
                 demarrerPartie();
             }
         });
-    }
+            }
+        }
+    
 
     private void demarrerPartie() {
 
 
+        JButton lancerbtn = null;
         new Thread() {
             public void start(JButton lancerbtn) {
             }
 
             public void run() {
+                Joueur joueur1 = null;
                 joueur1.jouerAvec(joueur2);
 
             }
         }.start(lancerbtn);
     }
-}
