@@ -218,19 +218,16 @@ public class GrilleNavale {
 
 
     public boolean recoitTir(Coordonnee c) {
-        if (estDansTirsRecus(c)){
-            return false;
-        }else{
-            for (int i = 0; i < nbNavires; i++) {
-                if (navires[i].contient(c)) {
-                    ajouteDansTirsRecus(c);
+        if (!this.estDansTirsRecus(c)) {
+            for (int i = 0; i < nbNavires; i++)
+                
+                if (navires[i].recoitTir(c))
                     return true;
-                }
-            }
         }
-        ajouteDansTirsRecus(c);
         return false;
     }
+
+    
     public boolean estTouche(Coordonnee c) {
         if (navires == null) {
             throw new IllegalArgumentException("La grille ne contient aucun navire.");
