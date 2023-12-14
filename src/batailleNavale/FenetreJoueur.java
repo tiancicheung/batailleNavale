@@ -37,8 +37,6 @@ import java.awt.color.*;
             this.contentPane.add(this.grilleDefense);
             this.setContentPane(this.contentPane);
             this.setVisible(true);
-            this.resetButton = new JButton("Reset");
-            this.contentPane.add(this.resetButton);
             this.contentPane.add(this.grilleTirs);
             this.contentPane.add(this.grilleDefense);
             this.setContentPane(this.contentPane);
