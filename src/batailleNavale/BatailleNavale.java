@@ -108,7 +108,7 @@ public class BatailleNavale {
     private void initialize() {
         frameBatailleNavale = new JFrame();
         frameBatailleNavale.setTitle("Bataille Navale");
-        frameBatailleNavale.setBounds(100, 100, 450, 300);
+        frameBatailleNavale.setBounds(200, 200, 550, 400);
         frameBatailleNavale.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panneauHaut = new JPanel();
@@ -211,7 +211,7 @@ public class BatailleNavale {
         btnDemarrer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (fdTailleGrille.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Il ne faut pas de taille vide", "Taille vide",
+                    JOptionPane.showMessageDialog(null, "La taille ne peut pas être égale à zero", "Taille vide",
                             JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -253,6 +253,7 @@ public class BatailleNavale {
 
                 }
 
+                // A completer
                 if (rabTextJ1.isSelected()) {
                     GrilleNavale grilleNavaleJ1 = new GrilleNavale(tailleGrille, navires);
                     joueur1 = new JoueurTexte(grilleNavaleJ1, nomJoueurUn);
