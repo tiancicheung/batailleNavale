@@ -4,22 +4,30 @@ import java.awt.Color; // Pour pouvoir utiliser Color.GREEN, Color.BLUE, Color.R
 import javax.swing.*;
 
 public class JoueurGraphique extends JoueurAvecGrille {
+
     private GrilleGraphique grilleTirs;
+
+    //    Constructeurs :
     public JoueurGraphique(GrilleNavaleGraphique grilleDefense, GrilleGraphique grilleTirs, String nom) {
         super(grilleDefense, nom);
         this.grilleTirs = grilleTirs;
     }
+
     public JoueurGraphique(GrilleNavaleGraphique grilleDefense, GrilleGraphique grilleTirs) {
         super(grilleDefense);
         this.grilleTirs = grilleTirs;
     }
+
+    //    Methodes :
     public Coordonnee choixAttaque() {
         return grilleTirs.getCoordonneeSelectionnee();
     }
+
     protected void retourDefense(Coordonnee c, int etat) {
         // Affichage d'un JOptionPane lorsque le tir a touché ou coulé un navire,
         // ou lorsque la partie est perdue.
     }
+
     protected void retourAttaque(Coordonnee c, int etat) {
         Color couleur = etat == A_L_EAU ? Color.BLUE : Color.RED;
         grilleTirs.colorie(c, couleur);
@@ -34,4 +42,9 @@ public class JoueurGraphique extends JoueurAvecGrille {
                 JOptionPane.showMessageDialog(grilleTirs, "Vous avez gagné!!!");
         }
     }
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
