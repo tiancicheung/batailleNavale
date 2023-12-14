@@ -47,14 +47,9 @@ public class GrilleNavale {
                 return false;  // L'ajout est impossible car le navire dépasse les limites
             }
             // Ajouter le navire à la grille
-            for (int i = 0; i < navires.length; i++) {
-                if (navires[i] == null) {
-                    navires[i] = n;
-                    nbNavires++;
-                    return true;  // L'ajout a réussi
-                }
-            }
-            return false;  // La grille est pleine, l'ajout est impossible
+            navires[nbNavires] = n;
+            nbNavires++;
+            return true;  // L'ajout a réussi
         }
     // Méthodes
     public String toString() {
