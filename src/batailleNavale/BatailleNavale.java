@@ -53,8 +53,8 @@ public class BatailleNavale {
 
             public void run() {
                 Joueur joueur1 = null;
-                joueur1.jouerAvec(joueur2);
+                Joueur joueur2 = null;
+                joueur1.jouerAvec (joueur2);
 
             }
         }.start(lancerbtn);
-    }
