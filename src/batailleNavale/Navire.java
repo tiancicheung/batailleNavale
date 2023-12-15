@@ -10,7 +10,7 @@ public class Navire {
     // Constructeur
     public Navire(Coordonnee debut, int longueur, boolean estVertical) {
         if (longueur <= 0) { // on vérifie que la longueur du navire est positive
-            throw new IllegalArgumentException("La longueur d'un navire ne peut être inférieure à 0, longueur = " + longueur);
+            throw new IllegalArgumentException("La longueur d'un navire ne peut être inférieure à 0.");
         }
         this.debut = debut; // on affecte les valeurs à debut
 
@@ -59,16 +59,22 @@ public class Navire {
 
     public boolean touche(Navire n) {
         // Si sur une ligne adjacente et sur même colonne & pas de chevauchement
-        if (n.getFin().getLigne() + 1 >= this.getDebut().getLigne() && this.getFin().getLigne() + 1 >= n.getDebut().getLigne()) // on vérifie si les navires sont sur une ligne adjacente
-            if (n.getFin().getColonne() >= this.getDebut().getColonne() && this.getFin().getColonne() >= n.getDebut().getColonne()) // si oui on vérifie si les navires sont sur la même colonne
-                if (!this.chevauche(n)) // on vérifie si les navires ne se chevauchent pas
+        if (n.getFin().getLigne() + 1 >= this.getDebut().getLigne() && this.getFin().getLigne() + 1 >= n.getDebut().getLigne()) { // on vérifie si les navires sont sur une ligne adjacente
+            if (n.getFin().getColonne() >= this.getDebut().getColonne() && this.getFin().getColonne() >= n.getDebut().getColonne()) { // si oui on vérifie si les navires sont sur la même colonne
+                if (!this.chevauche(n)) { // on vérifie si les navires ne se chevauchent pas
                     return true; // si oui on retourne true
+                }
+            }
+        }
 
         // Si sur une colonne adjacente et sur même ligne & pas de chevauchement
-        if (n.getFin().getColonne() + 1 >= this.getDebut().getColonne() && this.getFin().getColonne() + 1 >= n.getDebut().getColonne()) // on vérifie si les navires sont sur une colonne adjacente
-            if (n.getFin().getLigne() >= this.getDebut().getLigne() && this.getFin().getLigne() >= n.getDebut().getLigne()) // si oui on vérifie si les navires sont sur la même ligne
-                if (!this.chevauche(n)) // on vérifie si les navires ne se chevauchent pas
+        if (n.getFin().getColonne() + 1 >= this.getDebut().getColonne() && this.getFin().getColonne() + 1 >= n.getDebut().getColonne()) { // on vérifie si les navires sont sur une colonne adjacente
+            if (n.getFin().getLigne() >= this.getDebut().getLigne() && this.getFin().getLigne() >= n.getDebut().getLigne()) { // si oui on vérifie si les navires sont sur la même ligne
+                if (!this.chevauche(n)) { // on vérifie si les navires ne se chevauchent pas
                     return true; // si oui on retourne true
+                }
+            }
+        }
 
         return false; // si les navires ne sont pas adjacents ou se chevauchent on retourne false
     }
@@ -140,5 +146,13 @@ public class Navire {
             throw new IllegalArgumentException("Le nombre de fois que le navire est touché ne peut être inférieur à 0, nbTouchees = " + nbTouchees);
         }
         return nbTouchees == partiesTouchees.length; // si nbTouchees == partiesTouchees.length, ça veut dire que le navire est coulé
+    }
+
+    public int tailleNavire() {
+        if (this.estVertical()) {
+            return fin.getLigne() - debut.getLigne() + 1;
+        } else {
+            return fin.getColonne() - debut.getColonne() + 1;
+        }
     }
 }
