@@ -28,9 +28,9 @@ public class FenetreJoueur extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        FenetreJoueur test = new FenetreJoueur();
-
-    }
+//    public static void main(String[] args) {
+//    	FenetreJoueur test = new FenetreJoueur();
+//
+//    }
 
 }
