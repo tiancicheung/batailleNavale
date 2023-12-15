@@ -187,11 +187,6 @@ public class BatailleNavale {
                 String nomJoueurUn = txtfdNomJ1.getText();
                 String nomJoueurDeux = txtfdNomJ2.getText();
 
-//				int[] navires = creerNavires(tailleGrille);
-//
-//				if (navires[0] == 0) {
-//					return;
-//				}
 
                 if (rabGraphJ1.isSelected()) {
 
