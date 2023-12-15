@@ -20,7 +20,6 @@ public class BatailleNavale {
     private JRadioButton rabGraphJ1, rabTextJ1, rabAutoJ1;
     private JRadioButton rabGraphJ2, rabTextJ2, rabAutoJ2;
     private int tailleGrille;
-    private JCheckBox checkPlaceAuto;//, checkNavireGen;
 
     private final ButtonGroup buttonGroup = new ButtonGroup();
     private final ButtonGroup buttonGroup_1 = new ButtonGroup();

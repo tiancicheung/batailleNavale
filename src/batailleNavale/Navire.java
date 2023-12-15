@@ -95,10 +95,11 @@ public class Navire {
 
     //Retourne true si et seulement si this contient c. Dans ce cas, c est ajoutée aux parties touchées si nécessaire.
     public boolean recoitTir(Coordonnee c) {
+
         if (partiesTouchees.length <= 0) {
             throw new IllegalArgumentException("Le nombre de parties d'un navire ne peut être inférieur à 0, nombre de parties du navire = " + partiesTouchees.length);
         }
-        if (contient(c)) {
+        if (contient(c) && !estTouche(c)) {
             for (int i = 0; i < partiesTouchees.length; i++) {
                 if (partiesTouchees[i] == null) {
                     partiesTouchees[i] = c; //si y a encore place dans partiesTouchees, on va ajouter c dedans

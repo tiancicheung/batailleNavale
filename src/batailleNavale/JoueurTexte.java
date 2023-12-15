@@ -21,7 +21,7 @@ public class JoueurTexte extends JoueurAvecGrille {
         else if (etat == Joueur.A_L_EAU)
             System.out.println("Tir " + c+" de l'attaquant : Vous avez tiré dans l'eau");
         else if (etat == Joueur.GAMEOVER)
-            System.out.println("Tir " + c+" : Gagné :) ");
+            System.out.println("Tir " + c+" de l'attaquant : Gagné :) ");
     }
 
 
@@ -33,13 +33,13 @@ public class JoueurTexte extends JoueurAvecGrille {
         else if (etat == Joueur.A_L_EAU)
             System.out.println("Tir " + c+" du défenseur : Un tir par l'attaquant est tombé dans l'eau");
         else if (etat == Joueur.GAMEOVER)
-            System.out.println("Tir " + c+" : Perdu :( ");
+            System.out.println("Tir " + c+" du défenseur : Perdu :( ");
 
 
     }
     public Coordonnee choixAttaque() {
-        System.out.println("Entrez grille : \n"+this.getGrille());
-        System.out.println("Vous etes : " + getNom());
+//           System.out.println("Entrez grille : \n");
+        System.out.println("\nVous etes : " + getNom());
         System.out.println("Entrez les coordonnées de vous voulez attaquer : ");
         String coord = sc.nextLine();//lire les coordonnées
         Coordonnee c = new Coordonnee(coord);//créer un objet coordonnée

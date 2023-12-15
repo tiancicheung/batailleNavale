@@ -37,7 +37,7 @@ public class JoueurAuto extends JoueurAvecGrille {
         else if (etat == Joueur.A_L_EAU)
             System.out.println("Tir " + c+" IA attaque : Vous avez tiré dans l'eau");
         else if (etat == Joueur.GAMEOVER)
-            System.out.println("Tir " + c+" : Gagné :) ");
+            System.out.println("Tir " + c+" : l'IA a gagné :) ");
 
     }
     protected void retourDefense(Coordonnee c, int etat) {
@@ -48,7 +48,7 @@ public class JoueurAuto extends JoueurAvecGrille {
         else if (etat == Joueur.A_L_EAU)
             System.out.println("Tir " + c+" IA : Un tir par l'attaquant est tombé dans l'eau");
         else if (etat == Joueur.GAMEOVER)
-            System.out.println("Tir " + c+" : Perdu :( ");
+            System.out.println("Tir " + c+" : l'IA a perdu :( ");
     }
 
 
