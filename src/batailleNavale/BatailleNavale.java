@@ -194,7 +194,7 @@ public class BatailleNavale {
                     GrilleGraphique gg1 = new GrilleGraphique(tailleGrille);
 
                     // placement auto des bateaux en fonction de la taille
-                    int[] liste = gng1.ListeNavires();
+                    int[] liste = gng1.getTailleSelonGrille();
                     gng1.placementAuto(liste);
 
                     joueur1 = new JoueurGraphique(gng1, gg1, nomJoueurUn);
@@ -213,7 +213,7 @@ public class BatailleNavale {
                     GrilleGraphique gg2 = new GrilleGraphique(tailleGrille);
 
                     // placement auto des bateaux en fonction de la taille
-                    int[] liste = gng2.ListeNavires();
+                    int[] liste = gng2.getTailleSelonGrille();
                     gng2.placementAuto(liste);
 
                     joueur2 = new JoueurGraphique(gng2, gg2, nomJoueurDeux);
