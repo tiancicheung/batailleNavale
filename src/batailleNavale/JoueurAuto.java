@@ -56,20 +56,20 @@ public class JoueurAuto extends JoueurAvecGrille {
         if (nbTirs < g.getTaille() * g.getTaille()) {
             Coordonnee coordonnee;
 
-            // choose a random coordinate if the array resteATirer contains the coordinate
+            // L'IA choisit une coordonnee aleatoire si l'indice contient la coordonnee
             do {
                 coordonnee = new Coordonnee((int) (Math.random() * g.getTaille()), (int) (Math.random() * g.getTaille()));
             } while (containsCoordonnee(dejaTirs, nbTirs, coordonnee));
 
             nbTirs++;
-            dejaTirs[nbTirs - 1] = coordonnee; //remember the coordinate
+            dejaTirs[nbTirs - 1] = coordonnee; // On stocke la coordonnee
             return coordonnee;
         } else {
-            return null; // all the place are attacked, nothing to do
+            return null; // toutes les cases ont déja été touchées
         }
     }
 
-    // test if the array contains the target
+    // On test si l'indice contient une cible valide
     private boolean containsCoordonnee(Coordonnee[] array, int length, Coordonnee target) {
         for (int i = 0; i < length; i++) {
             if (array[i] != null && array[i].equals(target)) {
