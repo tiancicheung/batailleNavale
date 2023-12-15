@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Random;
 
 
@@ -27,32 +27,6 @@ public class BatailleNavale {
     /**
      * Launch the application.
      */
-
-    public int[] navireGen(int tailleGrille) {
-        int placementReserverNavire = (int) (Math.pow(tailleGrille, 2) * 0.2); //Paramètre réglable.
-
-
-
-        int[] tailleNaviresBase = new int[] { 2, 2, 3, 3, 4, 5 };
-        int lastValidIndex = 5;//5 default
-        int tailleRestante = placementReserverNavire - 19; // 19 = somme des tailles de base
-        // remplire le tableau de navire des tailles de base.
-        int[] tailleNaviresPost = Arrays.copyOf(tailleNaviresBase, placementReserverNavire/2);
-        System.out.println(tailleRestante);
-        while (tailleRestante > 1) {
-            int tailleGen = (int) ((Math.random() * (6 - 2)) + 2); // taille random entre 2 et 6 exclus
-            for (int i = 0; i < placementReserverNavire/2; i++)
-                if (tailleNaviresPost[i] == 0) {
-                    tailleNaviresPost[i] = tailleGen;
-                    tailleRestante -=tailleGen;
-                    lastValidIndex = i;
-                    break;
-                }
-        }
-
-        return Arrays.copyOfRange(tailleNaviresPost, 0, lastValidIndex+1);
-
-    }
 
 
     private void demarrerPartie() {
@@ -308,21 +282,5 @@ public class BatailleNavale {
 
     }
 
-
-//	public int[] creerNavires(int tailleGrille) {
-//
-//		int[] navires;
-//		if (tailleGrille >= 10 && tailleGrille <= 26) {
-//			if (checkPlaceAuto.isSelected()) {
-//				return navires = navireGen(tailleGrille);
-//			}
-//			return navires = new int[] { 2, 2, 3, 3, 4, 5 };
-//		} else if (tailleGrille >= 6 && tailleGrille < 10) {
-//			return navires = new int[] { 2, 2, 3 };
-//		} else {
-//			JOptionPane.showMessageDialog(null, "Veuillez sélectionner une taille de grille dans la plage de 6 à 26 inclusivement.");
-//			return navires = new int[] { 0 };
-//		}
-//	}
 
 }
