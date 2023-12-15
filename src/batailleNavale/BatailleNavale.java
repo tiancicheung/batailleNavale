@@ -63,10 +63,10 @@ public class BatailleNavale {
         String nomJoueurDeux = txtfdNomJ2.getText();
         Random commencePremierJ1 = new Random();
 
-        if (rabGraphJ1.isSelected() && !checkPlaceAuto.isSelected()) {
+        if (rabGraphJ1.isSelected()) {
             JOptionPane.showMessageDialog(null, nomJoueurUn + " commence en premier.", "Premier joueur", JOptionPane.INFORMATION_MESSAGE);
             joueur1.jouerAvec(joueur2);
-        } else if (rabGraphJ2.isSelected() && !checkPlaceAuto.isSelected()) {
+        } else if (rabGraphJ2.isSelected()) {
             JOptionPane.showMessageDialog(null, nomJoueurDeux + " commence en premier.", "Premier joueur", JOptionPane.INFORMATION_MESSAGE);
             joueur2.jouerAvec(joueur1);
         } else {
@@ -135,11 +135,6 @@ public class BatailleNavale {
         fdTailleGrille.setText("10");
         reglageGrille.add(fdTailleGrille);
         fdTailleGrille.setColumns(10);
-
-        checkPlaceAuto = new JCheckBox("Navire automatique");
-        checkPlaceAuto.setToolTipText("Si checked, navires placé aux hasard");
-        checkPlaceAuto.setSelected(true);
-        reglageGrille.add(checkPlaceAuto);
 
         JPanel panneauCentre = new JPanel();
         panneauHaut.add(panneauCentre, BorderLayout.CENTER);
@@ -315,20 +310,20 @@ public class BatailleNavale {
     }
 
 
-    public int[] creerNavires(int tailleGrille) {
-
-        int[] navires;
-        if (tailleGrille >= 10 && tailleGrille <= 26) {
-            if (checkPlaceAuto.isSelected()) {
-                return navires = navireGen(tailleGrille);
-            }
-            return navires = new int[] { 2, 2, 3, 3, 4, 5 };
-        } else if (tailleGrille >= 6 && tailleGrille < 10) {
-            return navires = new int[] { 2, 2, 3 };
-        } else {
-            JOptionPane.showMessageDialog(null, "Veuillez sélectionner une taille de grille dans la plage de 6 à 26 inclusivement.");
-            return navires = new int[] { 0 };
-        }
-    }
+//	public int[] creerNavires(int tailleGrille) {
+//
+//		int[] navires;
+//		if (tailleGrille >= 10 && tailleGrille <= 26) {
+//			if (checkPlaceAuto.isSelected()) {
+//				return navires = navireGen(tailleGrille);
+//			}
+//			return navires = new int[] { 2, 2, 3, 3, 4, 5 };
+//		} else if (tailleGrille >= 6 && tailleGrille < 10) {
+//			return navires = new int[] { 2, 2, 3 };
+//		} else {
+//			JOptionPane.showMessageDialog(null, "Veuillez sélectionner une taille de grille dans la plage de 6 à 26 inclusivement.");
+//			return navires = new int[] { 0 };
+//		}
+//	}
 
 }
