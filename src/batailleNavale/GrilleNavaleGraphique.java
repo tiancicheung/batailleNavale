@@ -46,52 +46,52 @@ public class GrilleNavaleGraphique extends GrilleNavale {
         return tirRecu;
     }
 
-    //  Test :
-    public static void main(String[] args) {
-        // Créez une grille navale graphique de taille 10
-        GrilleNavaleGraphique grilleNavaleGraphique = new GrilleNavaleGraphique(10);
-
-        // Ajoutez quelques navires à la grille
-        Navire navire1 = new Navire(new Coordonnee(0, 0), 3, true);
-        Navire navire2 = new Navire(new Coordonnee(5, 5), 4, false);
-
-        grilleNavaleGraphique.ajouteNavire(navire1);
-        grilleNavaleGraphique.ajouteNavire(navire2);
-
-        // Affichez la grille graphique
-        GrilleGraphique grilleGraphique = grilleNavaleGraphique.getGrilleGraphique();
-        grilleGraphique.setClicActive(false); // Désactivez les clics pour l'instant
-        JFrame frame = new JFrame("Test GrilleNavaleGraphique");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(grilleGraphique);
-        frame.pack();
-        frame.setVisible(true);
-
-        // Attendez un moment pour que la fenêtre soit visible (peut nécessiter des ajustements)
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Réactivez les clics
-        grilleGraphique.setClicActive(true);
-
-        // Effectuez des tirs (vous devrez cliquer sur la grille dans la fenêtre)
-        for (int i = 0; i < 5; i++) {
-            Coordonnee tir = grilleGraphique.getCoordonneeSelectionnee();
-            grilleNavaleGraphique.recoitTir(tir);
-            // Vous pouvez également ajouter des pauses entre les tirs pour mieux voir les changements
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Fermez la fenêtre après le test
-        frame.dispose();
-    }
+//  Test :
+//    public static void main(String[] args) {
+//    	// Créez une grille navale graphique de taille 10
+//        GrilleNavaleGraphique grilleNavaleGraphique = new GrilleNavaleGraphique(10);
+//
+//        // Ajoutez quelques navires à la grille
+//        Navire navire1 = new Navire(new Coordonnee(0, 0), 3, true);
+//        Navire navire2 = new Navire(new Coordonnee(5, 5), 4, false);
+//
+//        grilleNavaleGraphique.ajouteNavire(navire1);
+//        grilleNavaleGraphique.ajouteNavire(navire2);
+//
+//        // Affichez la grille graphique
+//        GrilleGraphique grilleGraphique = grilleNavaleGraphique.getGrilleGraphique();
+//        grilleGraphique.setClicActive(false); // Désactivez les clics pour l'instant
+//        JFrame frame = new JFrame("Test GrilleNavaleGraphique");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.getContentPane().add(grilleGraphique);
+//        frame.pack();
+//        frame.setVisible(true);
+//
+//        // Attendez un moment pour que la fenêtre soit visible (peut nécessiter des ajustements)
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Réactivez les clics
+//        grilleGraphique.setClicActive(true);
+//
+//        // Effectuez des tirs (vous devrez cliquer sur la grille dans la fenêtre)
+//        for (int i = 0; i < 5; i++) {
+//            Coordonnee tir = grilleGraphique.getCoordonneeSelectionnee();
+//            grilleNavaleGraphique.recoitTir(tir);
+//            // Vous pouvez également ajouter des pauses entre les tirs pour mieux voir les changements
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        // Fermez la fenêtre après le test
+//        frame.dispose();
+//    }
 
 }
 

@@ -27,7 +27,7 @@ class JButtonCoordonnee extends JButton {
 public class GrilleGraphique extends JPanel implements ActionListener {
 
     private static final long serialVersionUID = 8857166149660579225L;
-    private boolean placementVertical = false;
+
     /**
      * La matrice des boutons (cases de la grille)
      */
@@ -81,7 +81,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
     /**
      * Colorie la case indiquée par la coordonnée
      *
-     * @param coord
+     * @param cord
      *            la coordonnée de la case à colorier
      * @param color
      *            la couleur de la case
@@ -128,9 +128,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
         });
     }
 
-    public boolean getPlacementVertical() {
-        return placementVertical;
-    }
+
     /**
      * Methode appelée lorsque l'on clique sur une case de la grille.
      * Elle "reveille" la méthode getCoordonneeSelectionnee
@@ -150,32 +148,6 @@ public class GrilleGraphique extends JPanel implements ActionListener {
      * retourne la coordonnee qui a été selectionnée
      * @return la coordonnée selectionnée
      */
-
-
-
-
-
-
-//@Override
-//public void keyPressed(KeyEvent e) {
-//	if (e.getKeyChar() == 'v') {
-//		System.out.println("ctrl");
-//		placementVertical = true;
-//	}
-//}
-//@Override
-//public void keyReleased(KeyEvent e) {
-//	if (e.getKeyChar() == 'v') {
-//		System.out.println("ctrl release");
-//		placementVertical = false;
-//	}
-//}
-
-    /**
-     * Attend que l'utilisateur selectionne (clic) sur une case de la grille et
-     * retourne la coordonnee qui a été selectionnée
-     * @return la coordonnée selectionnée
-     */
     public synchronized Coordonnee getCoordonneeSelectionnee() {
         this.setClicActive(true);
         try {
@@ -184,10 +156,6 @@ public class GrilleGraphique extends JPanel implements ActionListener {
             throw new RuntimeException(ex);
         }
         return coordonneeSelectionnee;
-    }
-
-    public JButton getJButton(Coordonnee c) {
-        return cases[c.getLigne()][c.getColonne()];
     }
 
 }

@@ -219,49 +219,65 @@ public class BatailleNavale {
                 String nomJoueurUn = txtfdNomJ1.getText();
                 String nomJoueurDeux = txtfdNomJ2.getText();
 
-                int[] navires = creerNavires(tailleGrille);
-
-                if (navires[0] == 0) {
-                    return;
-                }
+//				int[] navires = creerNavires(tailleGrille);
+//
+//				if (navires[0] == 0) {
+//					return;
+//				}
 
                 if (rabGraphJ1.isSelected()) {
 
 
-                    GrilleNavaleGraphique gng1 = new GrilleNavaleGraphique(10);
-                    GrilleGraphique gg1 = new GrilleGraphique(10);
+                    GrilleNavaleGraphique gng1 = new GrilleNavaleGraphique(tailleGrille);
+                    GrilleGraphique gg1 = new GrilleGraphique(tailleGrille);
+
+                    // placement auto des bateaux en fonction de la taille
+                    int[] liste = gng1.ListeNavires();
+                    gng1.placementAuto(liste);
 
                     joueur1 = new JoueurGraphique(gng1, gg1, nomJoueurUn);
 
                     FenetreJoueur fenetreJoueur1 = new FenetreJoueur(nomJoueurUn, gg1,gng1.getGrilleGraphique());
                     fenetreJoueur1.pack();
                     fenetreJoueur1.setVisible(true);
+                    System.out.println(gng1);
 
                 }
 
                 if (rabGraphJ2.isSelected()) {
 
 
-                    GrilleNavaleGraphique gng2 = new GrilleNavaleGraphique(10);
-                    GrilleGraphique gg2 = new GrilleGraphique(10);
+                    GrilleNavaleGraphique gng2 = new GrilleNavaleGraphique(tailleGrille);
+                    GrilleGraphique gg2 = new GrilleGraphique(tailleGrille);
+
+                    // placement auto des bateaux en fonction de la taille
+                    int[] liste = gng2.ListeNavires();
+                    gng2.placementAuto(liste);
+
                     joueur2 = new JoueurGraphique(gng2, gg2, nomJoueurDeux);
 
 
                     FenetreJoueur fenetreJoueur2 = new FenetreJoueur(nomJoueurDeux, gg2,gng2.getGrilleGraphique());
                     fenetreJoueur2.pack();
                     fenetreJoueur2.setVisible(true);
-
+                    System.out.println(gng2);
                 }
 
                 // A completer
                 if (rabTextJ1.isSelected()) {
-                    GrilleNavale grilleNavaleJ1 = new GrilleNavale(tailleGrille, navires);
+                    int[] naviresJtexte = {2, 2, 3, 3, 4};
+                    GrilleNavale grilleNavaleJ1 = new GrilleNavale(tailleGrille, naviresJtexte);
                     joueur1 = new JoueurTexte(grilleNavaleJ1, nomJoueurUn);
+                    System.out.println(nomJoueurUn);
+                    System.out.println(grilleNavaleJ1);
                 }
 
                 if (rabTextJ2.isSelected()) {
-                    GrilleNavale grilleNavaleJ2 = new GrilleNavale(tailleGrille, navires);
+                    int[] naviresJ2texte = {2, 2, 3, 3, 4};
+                    GrilleNavale grilleNavaleJ2 = new GrilleNavale(tailleGrille, naviresJ2texte);
                     joueur2 = new JoueurTexte(grilleNavaleJ2, nomJoueurDeux);
+                    System.out.println(nomJoueurDeux);
+                    System.out.println(grilleNavaleJ2);
                 }
                 if (rabAutoJ1.isSelected() && rabAutoJ2.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Au moins un joueur humain doit être dans la partie",
@@ -270,13 +286,19 @@ public class BatailleNavale {
                 }
 
                 if (rabAutoJ1.isSelected() && !rabAutoJ2.isSelected()) {
-                    GrilleNavale grilleNavaleJ1 = new GrilleNavale(tailleGrille, navires);
-                    joueur1 = new JoueurAuto(grilleNavaleJ1, nomJoueurUn);
+                    int[] naviresJauto = {2, 2, 3, 3, 4};
+                    GrilleNavale grilleNavaleJauto = new GrilleNavale(tailleGrille, naviresJauto);
+                    joueur1 = new JoueurAuto(grilleNavaleJauto, nomJoueurUn);
+                    System.out.println(nomJoueurUn);
+                    System.out.println(grilleNavaleJauto);
                 }
 
                 if (!rabAutoJ1.isSelected() && rabAutoJ2.isSelected()) {
-                    GrilleNavale grilleNavaleJ2 = new GrilleNavale(tailleGrille, navires);
+                    int[] naviresJ2auto = {2, 2, 3, 3, 4};
+                    GrilleNavale grilleNavaleJ2 = new GrilleNavale(tailleGrille, naviresJ2auto);
                     joueur2 = new JoueurAuto(grilleNavaleJ2, nomJoueurDeux);
+                    System.out.println(nomJoueurDeux);
+                    System.out.println(grilleNavaleJ2);
                 }
 
                 new Thread() {
