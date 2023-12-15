@@ -226,7 +226,7 @@ public class BatailleNavale {
                     GrilleGraphique gg1 = new GrilleGraphique(tailleGrille);
 
                     // placement auto des bateaux en fonction de la taille
-                    int[] liste = {2, 2, 3, 3, 4};
+                    int[] liste = gng1.getTailleSelonGrille();
                     gng1.placementAuto(liste);
 
                     joueur1 = new JoueurGraphique(gng1, gg1, nomJoueurUn);
@@ -245,7 +245,7 @@ public class BatailleNavale {
                     GrilleGraphique gg2 = new GrilleGraphique(tailleGrille);
 
                     // placement auto des bateaux en fonction de la taille
-                    int[] liste = {2, 2, 3, 3, 4};
+                    int[] liste = gng2.getTailleSelonGrille();
                     gng2.placementAuto(liste);
 
                     joueur2 = new JoueurGraphique(gng2, gg2, nomJoueurDeux);
@@ -307,7 +307,6 @@ public class BatailleNavale {
         PanneauSud.add(btnDemarrer);
 
     }
-
 
 
 //	public int[] creerNavires(int tailleGrille) {
